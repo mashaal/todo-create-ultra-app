@@ -1,9 +1,10 @@
 import React from 'react';
 import ultraCache from 'ultra/cache';
-import { Cache } from 'https://deno.land/x/ultra@v1.0.1/src/types.ts';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'wouter';
 import { SWRConfig } from 'swr';
+// Can't put this in the importMap because SWC will cause an error on deploy.
+import { Cache } from 'https://deno.land/x/ultra@v1.0.1/src/types.ts';
 
 import { HomePage } from './components/pages/home/HomePage.tsx';
 import { LayoutTemplate } from './components/templates/LayoutTemplate/LayoutTemplate.tsx';
