@@ -1,0 +1,13 @@
+.Navbar {
+  height: 5em;
+  display: flex;
+  justify-content: center;
+}
+
+.Navbar .Item {
+  margin-left: 1em;
+  margin-right: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

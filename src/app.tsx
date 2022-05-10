@@ -1,9 +1,12 @@
 import React from 'react';
-import { SWRConfig } from 'swr';
-import { Helmet } from 'react-helmet';
-import { Route, Switch } from 'wouter';
 import ultraCache from 'ultra/cache';
 import { Cache } from 'https://deno.land/x/ultra/src/types.ts';
+import { Helmet } from 'react-helmet';
+import { Route, Switch } from 'wouter';
+import { SWRConfig } from 'swr';
+
+import { HomePage } from './components/pages/home/HomePage.tsx';
+import { LayoutTemplate } from './components/templates/LayoutTemplate/LayoutTemplate.tsx';
 
 const options = (cache: Cache) => ({
   provider: () => ultraCache(cache),
@@ -17,16 +20,55 @@ const Ultra = ({ cache }: { cache: Cache }) => {
         <title>Ultra</title>
         <link rel='stylesheet' href='/style.css' />
       </Helmet>
-      <main>
+      <LayoutTemplate>
         <Switch>
           <Route path='/'>
-            <h1>@__@</h1>
+            <HomePage />
           </Route>
           <Route>
             <strong>404</strong>
           </Route>
+
+          {
+            /* <Route path='/list'>
+            <ListListPage />
+          </Route>
+          <Route path='/list/:slug'>
+            <ListShowPage />
+          </Route>
+          <Route path='/list/:slug/update'>
+            <ListUpdatePage />
+          </Route>
+          <Route path='/list/:slug/remove'>
+            <ListRemovePage />
+          </Route>
+          <Route path='/project'>
+            <ProjectListPage />
+          </Route>
+          <Route path='/project/:slug'>
+            <ProjectShowPage />
+          </Route>
+          <Route path='/project/:slug/update'>
+            <ProjectUpdatePage />
+          </Route>
+          <Route path='/project/:slug/remove'>
+            <ProjectRemovePage />
+          </Route>
+          <Route path='/tag'>
+            <TagListPage />
+          </Route>
+          <Route path='/tag/:slug'>
+            <TagShowPage />
+          </Route>
+          <Route path='/tag/:slug/update'>
+            <TagUpdatePage />
+          </Route>
+          <Route path='/tag/:slug/remove'>
+            <TagRemovePage />
+          </Route> */
+          }
         </Switch>
-      </main>
+      </LayoutTemplate>
     </SWRConfig>
   );
 };
