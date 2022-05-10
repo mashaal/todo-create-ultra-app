@@ -1,6 +1,6 @@
 import React from 'react';
 import ultraCache from 'ultra/cache';
-import { Cache } from 'https://deno.land/x/ultra/src/types.ts';
+import { Cache } from 'https://deno.land/x/ultra@v1.0.1/src/types.ts';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'wouter';
 import { SWRConfig } from 'swr';
