@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run File (Deno)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${file}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--config",
+        "deno.json",
+        "-A",
+        "--no-check",
+        "--unstable",
+        "--inspect-brk"
+      ],
+      "attachSimplePort": 9229
+    },
+  ]
+}
