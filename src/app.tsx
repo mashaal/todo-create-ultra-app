@@ -19,6 +19,7 @@ const Ultra = ({ cache }: { cache: Cache }) => {
     <SWRConfig value={options(cache)}>
       <Helmet>
         <title>Ultra</title>
+        <link rel='stylesheet' href='/normalize.css' />
         <link rel='stylesheet' href='/style.css' />
       </Helmet>
       <LayoutTemplate>
