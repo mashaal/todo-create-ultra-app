@@ -1,6 +1,7 @@
 {
   "imports": {
     "app": "./src/app.tsx",
+    "graphql-request": "https://esm.sh/graphql-request@v4.2.0",
     "react": "https://esm.sh/react@18",
     "react-dom": "https://esm.sh/react-dom@18",
     "react-dom/server": "https://esm.sh/react-dom@18/server",
