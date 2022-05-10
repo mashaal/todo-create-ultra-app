@@ -1,4 +1,3 @@
-import 'https://deno.land/x/xhr@0.1.0/mod.ts';
 import ultra from 'https://deno.land/x/ultra@v1.0.1/server.ts';
 
 const FAUNADB_KEY = Deno.env.get('FAUNADB_KEY');
