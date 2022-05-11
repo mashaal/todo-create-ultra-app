@@ -14,6 +14,7 @@ import { LayoutTemplate } from './components/templates/LayoutTemplate/LayoutTemp
 import { queryClient } from './lib/graphql.ts';
 import { ListListPage } from './components/pages/ListListPage/ListListPage.tsx';
 import { ListShowPage } from './components/pages/ListShowPage/ListShowPage.tsx';
+import { NotFoundPage } from './components/pages/NotFoundPage/NotFoundPage.tsx';
 
 const options = (cache: Cache) => ({
   provider: () => ultraCache(cache),
@@ -38,18 +39,16 @@ const Ultra = ({ cache }: { cache: Cache }) => {
               <ListListPage />
             </Route>
             <Route path='/list/:id'>
-              {({ id }) => <ListShowPage id={id} />}
+              {({ id }) => {
+                if (!id) {
+                  return <NotFoundPage />;
+                }
+
+                return <ListShowPage id={id} />;
+              }}
             </Route>
-            {
-              /* <Route path='/list/:id/update'>
-              <ListUpdatePage />
-            </Route>
-            <Route path='/list/:id/remove'>
-              <ListRemovePage />
-            </Route> */
-            }
             <Route>
-              <strong>404</strong>
+              <NotFoundPage />
             </Route>
           </Switch>
         </LayoutTemplate>
