@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+curl \
+  --user $FAUNADB_KEY: \
+  --data-binary '@./src/graphql/datamodel.graphql' \
+  https://graphql.fauna.com/import 

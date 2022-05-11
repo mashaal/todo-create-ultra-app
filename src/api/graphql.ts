@@ -1,6 +1,8 @@
 const FAUNADB_KEY = Deno.env.get('FAUNADB_KEY');
 
 export default async (request: Request) => {
+  console.log('/api/graphql', request.method, request.url, request.body);
+
   const response = await fetch('https://graphql.fauna.com/graphql', {
     body: request.body,
     cache: request.cache,

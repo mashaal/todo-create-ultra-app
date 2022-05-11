@@ -1,23 +1,16 @@
 import React from 'react';
-import { useQuery } from '../../../lib/graphql.ts';
-
-type List = {
-  label: string;
-};
+import { client } from '../../../lib/graphql.ts';
+import { getSdkWithHooks } from '../../../graphql/generated/client.ts';
 
 export function HomePage() {
-  const query = `
-    query {
-      findAllLists {
-        data {
-          label
-        }
-      }
-    }
-  `;
-  const { error, data, isLoading } = useQuery(query);
+  const sdk = getSdkWithHooks(client);
 
-  if (isLoading) {
+  const { error, data } = sdk.useFindAllLists('findAllLists');
+
+  console.log('error', error);
+  console.log('data', data);
+
+  if (!error && !data) {
     return (
       <>
         <h1>Loading</h1>
@@ -37,8 +30,8 @@ export function HomePage() {
     <>
       <h1>Home</h1>
       <ul>
-        {data?.findAllLists?.data?.map((list: List) => (
-          <li key={list.label}>{list.label}</li>
+        {data?.findAllLists.data?.map((list) => (
+          <li key={list?.label}>{list?.label}</li>
         ))}
       </ul>
     </>
