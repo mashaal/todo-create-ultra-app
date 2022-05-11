@@ -2,13 +2,10 @@ import React from 'react';
 import { client } from '../../../lib/graphql.ts';
 import { getSdkWithHooks } from '../../../graphql/generated/client.ts';
 
-export function HomePage() {
+export function ListListPage() {
   const sdk = getSdkWithHooks(client);
 
   const { error, data } = sdk.useFindAllLists('findAllLists');
-
-  console.log('error', error);
-  console.log('data', data);
 
   if (!error && !data) {
     return (
@@ -28,11 +25,19 @@ export function HomePage() {
 
   return (
     <>
-      <h1>Home</h1>
+      <h1>Lists</h1>
       <ul>
-        {data?.findAllLists.data?.map((list) => (
-          <li key={list?.label}>{list?.label}</li>
-        ))}
+        {data?.findAllLists?.data?.map((list) => {
+          if (!list) {
+            return;
+          }
+
+          return (
+            <li key={list._id}>
+              <a href={`/list/${list._id}`}>{list.label}</a>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

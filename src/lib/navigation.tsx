@@ -10,11 +10,15 @@ export const pageTree: NavigationItem[] = [
     label: 'Home',
   },
   {
-    path: '/blog',
-    label: 'Blog',
+    path: '/list',
+    label: 'Lists',
   },
   {
-    path: '/contact',
-    label: 'Contact',
+    path: '/project',
+    label: 'Projects',
+  },
+  {
+    path: '/tags',
+    label: 'Tag',
   },
 ];
