@@ -1,16 +1,13 @@
 import React from 'react';
-import { client } from '../../../lib/graphql.ts';
-import {
-  getSdkWithHooks,
-  TodoInput,
-} from '../../../graphql/generated/client.ts';
 import { NewTodoInput } from '../../atoms/NewTodoInput/NewTodoInput.tsx';
+import { TodoInput } from '../../../graphql/generated/client.ts';
+import { getSDK } from '../../../lib/graphql.ts';
 import { parseTodo } from '../../../lib/todo.ts';
 
 export function HomePage() {
-  const sdk = getSdkWithHooks(client);
+  const sdk = getSDK();
 
-  const { data, error } = sdk.useFindAllTodos('todos');
+  const { data, error } = sdk.useFindAllTodos('findAllTodos');
 
   if (!error && !data) {
     return (
@@ -34,8 +31,6 @@ export function HomePage() {
       <NewTodoInput
         onSubmit={async (value) => {
           const { label, listLabel, projectLabel, tags } = parseTodo(value);
-
-          debugger;
 
           const data: TodoInput = {
             label,

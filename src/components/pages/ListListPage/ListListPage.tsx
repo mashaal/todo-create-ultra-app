@@ -1,9 +1,8 @@
 import React from 'react';
-import { client } from '../../../lib/graphql.ts';
-import { getSdkWithHooks } from '../../../graphql/generated/client.ts';
+import { getSDK } from '../../../lib/graphql.ts';
 
 export function ListListPage() {
-  const sdk = getSdkWithHooks(client);
+  const sdk = getSDK();
 
   const { error, data } = sdk.useFindAllLists('findAllLists');
 

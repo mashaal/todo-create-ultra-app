@@ -11,11 +11,11 @@ export const pageTree: NavigationItem[] = [
   },
   {
     path: '/lists',
-    label: '@Lists',
+    label: '!Lists',
   },
   {
     path: '/projects',
-    label: '!Projects',
+    label: '@Projects',
   },
   {
     path: '/tags',
