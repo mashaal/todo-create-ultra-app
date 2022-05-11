@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ultraCache from 'ultra/cache';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'wouter';
@@ -28,32 +28,34 @@ const Ultra = ({ cache }: { cache: Cache }) => {
         <link rel='stylesheet' href='/style.css' />
       </Helmet>
       <LayoutTemplate>
-        <Switch>
-          <Route path='/'>
-            <HomePage />
-          </Route>
-          <Route path='/lists'>
-            <ListListPage />
-          </Route>
-          <Route path='/lists/:id'>
-            {({ id }) => {
-              if (!id) {
-                return <NotFoundPage />;
-              }
+        <Suspense>
+          <Switch>
+            <Route path='/'>
+              <HomePage />
+            </Route>
+            <Route path='/lists'>
+              <ListListPage />
+            </Route>
+            <Route path='/lists/:id'>
+              {({ id }) => {
+                if (!id) {
+                  return <NotFoundPage />;
+                }
 
-              return <ListShowPage id={id} />;
-            }}
-          </Route>
-          <Route path='/projects'>
-            <ProjectListPage />
-          </Route>
-          <Route path='/tags'>
-            <TagListPage />
-          </Route>
-          <Route>
-            <NotFoundPage />
-          </Route>
-        </Switch>
+                return <ListShowPage id={id} />;
+              }}
+            </Route>
+            <Route path='/projects'>
+              <ProjectListPage />
+            </Route>
+            <Route path='/tags'>
+              <TagListPage />
+            </Route>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </Suspense>
       </LayoutTemplate>
     </SWRConfig>
   );

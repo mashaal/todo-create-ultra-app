@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'wouter';
+
 import { getSDK } from '../../../lib/graphql.ts';
 
 export function TagListPage() {
@@ -55,7 +57,7 @@ export function TagListPage() {
 
           return (
             <li key={list._id}>
-              <a href={`/tags/${list._id}`}>{list.label}</a>
+              <Link to={`/tags/${list._id}`}>{list.label}</Link>
             </li>
           );
         })}

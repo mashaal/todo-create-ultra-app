@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { getSDK } from '../../../lib/graphql.ts';
 
 export type ListShowPageProps = {

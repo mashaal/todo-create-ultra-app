@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'wouter';
+
 import { NewTodoInput } from '../../atoms/NewTodoInput/NewTodoInput.tsx';
 import { TodoInput } from '../../../graphql/generated/client.ts';
 import { getSDK } from '../../../lib/graphql.ts';
@@ -97,9 +99,13 @@ export function HomePage() {
         }}
       />
       <ul>
-        <li>
-          <a href='/lists'>Lists</a>
-        </li>
+        {data?.findAllTodos?.data.map((todo) => {
+          return (
+            <li>
+              <Link to='/todos'>{todo?.label}</Link>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

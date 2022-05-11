@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'wouter';
+
 import { getSDK } from '../../../lib/graphql.ts';
 
 export function ProjectListPage() {
@@ -33,7 +35,7 @@ export function ProjectListPage() {
 
           return (
             <li key={list._id}>
-              <a href={`/projects/${list._id}`}>{list.label}</a>
+              <Link to={`/projects/${list._id}`}>{list.label}</Link>
             </li>
           );
         })}
