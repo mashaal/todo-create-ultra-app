@@ -28,7 +28,7 @@ export function HomePage() {
       <h1>Home</h1>
       <ul>
         <li>
-          <a href='/list'>Lists</a>
+          <a href='/lists'>Lists</a>
         </li>
       </ul>
     </>

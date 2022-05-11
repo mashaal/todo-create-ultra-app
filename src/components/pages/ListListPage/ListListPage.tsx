@@ -34,7 +34,7 @@ export function ListListPage() {
 
           return (
             <li key={list._id}>
-              <a href={`/list/${list._id}`}>{list.label}</a>
+              <a href={`/lists/${list._id}`}>{list.label}</a>
             </li>
           );
         })}
