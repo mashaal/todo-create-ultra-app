@@ -11,7 +11,6 @@
     "react-helmet": "https://esm.sh/react-helmet-async?deps=react@18",
     "swr": "https://esm.sh/swr?deps=react@18",
     "ultra/cache": "https://deno.land/x/ultra@v1.0.1/cache.js",
-    "wouter": "https://esm.sh/wouter?deps=react@18",
-    "xhr": "https://deno.land/x/xhr@0.1.2/mod.ts"
+    "wouter": "https://esm.sh/wouter?deps=react@18"
   }
 }
