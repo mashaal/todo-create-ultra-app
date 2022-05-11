@@ -11,10 +11,12 @@ import { Cache } from 'https://deno.land/x/ultra@v1.0.1/src/types.ts';
 
 import { HomePage } from './components/pages/HomePage/HomePage.tsx';
 import { LayoutTemplate } from './components/templates/LayoutTemplate/LayoutTemplate.tsx';
-import { queryClient } from './lib/graphql.ts';
 import { ListListPage } from './components/pages/ListListPage/ListListPage.tsx';
 import { ListShowPage } from './components/pages/ListShowPage/ListShowPage.tsx';
 import { NotFoundPage } from './components/pages/NotFoundPage/NotFoundPage.tsx';
+import { ProjectListPage } from './components/pages/ProjectListPage/ProjectListPage.tsx';
+import { TagListPage } from './components/pages/TagListPage/TagListPage.tsx';
+import { queryClient } from './lib/graphql.ts';
 
 const options = (cache: Cache) => ({
   provider: () => ultraCache(cache),
@@ -35,10 +37,10 @@ const Ultra = ({ cache }: { cache: Cache }) => {
             <Route path='/'>
               <HomePage />
             </Route>
-            <Route path='/list'>
+            <Route path='/lists'>
               <ListListPage />
             </Route>
-            <Route path='/list/:id'>
+            <Route path='/lists/:id'>
               {({ id }) => {
                 if (!id) {
                   return <NotFoundPage />;
@@ -46,6 +48,12 @@ const Ultra = ({ cache }: { cache: Cache }) => {
 
                 return <ListShowPage id={id} />;
               }}
+            </Route>
+            <Route path='/projects'>
+              <ProjectListPage />
+            </Route>
+            <Route path='/tags'>
+              <TagListPage />
             </Route>
             <Route>
               <NotFoundPage />
@@ -59,18 +67,6 @@ const Ultra = ({ cache }: { cache: Cache }) => {
 
 export default Ultra;
 
-// <Route path='/list'>
-//   <ListListPage />
-// </Route>
-// <Route path='/list/:slug'>
-//   <ListShowPage />
-// </Route>
-// <Route path='/list/:slug/update'>
-//   <ListUpdatePage />
-// </Route>
-// <Route path='/list/:slug/remove'>
-//   <ListRemovePage />
-// </Route>
 // <Route path='/project'>
 //   <ProjectListPage />
 // </Route>

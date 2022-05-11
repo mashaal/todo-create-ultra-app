@@ -10,11 +10,11 @@ export const pageTree: NavigationItem[] = [
     label: 'Home',
   },
   {
-    path: '/list',
+    path: '/lists',
     label: 'Lists',
   },
   {
-    path: '/project',
+    path: '/projects',
     label: 'Projects',
   },
   {
