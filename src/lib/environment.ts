@@ -1,7 +1,7 @@
 export function isBrowser() {
-  return typeof window !== 'undefined';
+  return !isServer();
 }
 
 export function isServer() {
-  return !isBrowser();
+  return typeof Deno === 'object';
 }
