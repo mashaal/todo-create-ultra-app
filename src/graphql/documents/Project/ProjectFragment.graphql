@@ -1,0 +1,4 @@
+fragment ProjectFragment on Project {
+  _id
+  label
+}

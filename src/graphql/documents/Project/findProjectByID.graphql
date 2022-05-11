@@ -1,0 +1,5 @@
+query findProjectByID($id: ID!) {
+  findProjectByID(id: $id) {
+    ...ProjectFragment
+  }
+}

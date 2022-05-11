@@ -1,0 +1,5 @@
+mutation partialUpdateRepeat($id: ID!, $data: PartialUpdateRepeatInput!) {
+  partialUpdateRepeat(id: $id, data: $data) {
+    ...RepeatFragment
+  }
+}

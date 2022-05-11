@@ -1,0 +1,5 @@
+mutation createProject($data: ProjectInput!) {
+  createProject(data: $data) {
+    ...ProjectFragment
+  }
+}

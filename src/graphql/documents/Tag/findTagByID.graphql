@@ -1,0 +1,5 @@
+query findTagByID($id: ID!) {
+  findTagByID(id: $id) {
+    ...TagFragment
+  }
+}

@@ -1,0 +1,7 @@
+query findAllTags {
+  findAllTags {
+    data {
+      ...TagFragment
+    }
+  }
+}

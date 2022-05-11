@@ -1,0 +1,7 @@
+query findAllRepeats {
+  findAllRepeats {
+    data {
+      ...RepeatFragment
+    }
+  }
+}

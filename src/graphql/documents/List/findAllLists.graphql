@@ -1,8 +1,7 @@
 query findAllLists {
   findAllLists {
     data {
-      _id
-      label
+      ...ListFragment
     }
   }
 }

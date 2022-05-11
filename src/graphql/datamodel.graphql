@@ -15,7 +15,7 @@ type Todo {
 
   list: List
   project: Project
-  labels: [Tag] @relation
+  tags: [Tag] @relation
 }
 
 type Project {

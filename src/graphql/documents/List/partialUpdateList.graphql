@@ -1,0 +1,5 @@
+mutation partialUpdateList($id: ID!, $data: PartialUpdateListInput!) {
+  partialUpdateList(id: $id, data: $data) {
+    ...ListFragment
+  }
+}

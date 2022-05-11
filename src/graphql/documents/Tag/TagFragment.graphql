@@ -1,0 +1,4 @@
+fragment TagFragment on Tag {
+  _id
+  label
+}
