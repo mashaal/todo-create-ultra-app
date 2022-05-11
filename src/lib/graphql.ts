@@ -1,17 +1,11 @@
 import useSWR from 'swr';
 import { request } from 'graphql-request';
 
-const FAUNADB_KEY = Deno.env.get('FAUNADB_KEY');
-
-const headers = new Headers();
-headers.set('Authorization', `Bearer ${FAUNADB_KEY}`);
-
 const fetcher = (query: string, variables: Record<string, unknown>) => {
   return request(
-    'https://graphql.fauna.com/graphql',
+    '/api/graphql',
     query,
     variables,
-    headers,
   );
 };
 
