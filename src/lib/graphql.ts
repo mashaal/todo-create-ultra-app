@@ -1,4 +1,3 @@
-import { QueryClient } from 'react-query';
 import { GraphQLClient } from 'graphql-request';
 import { isServer } from './environment.ts';
 
@@ -12,5 +11,3 @@ if (isServer()) {
   client.setEndpoint('https://graphql.fauna.com/graphql');
   client.setHeader('Authorization', `Bearer ${Deno.env.get('FAUNADB_KEY')}`);
 }
-
-export const queryClient = new QueryClient();

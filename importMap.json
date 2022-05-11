@@ -9,7 +9,6 @@
     "react-dom": "https://esm.sh/react-dom@18",
     "react-dom/server": "https://esm.sh/react-dom@18/server",
     "react-helmet": "https://esm.sh/react-helmet-async?deps=react@18",
-    "react-query": "https://esm.sh/react-query@v3.39.0",
     "swr": "https://esm.sh/swr?deps=react@18",
     "ultra/cache": "https://deno.land/x/ultra@v1.0.1/cache.js",
     "wouter": "https://esm.sh/wouter?deps=react@18",
