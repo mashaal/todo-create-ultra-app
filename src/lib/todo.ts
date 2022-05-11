@@ -21,25 +21,21 @@ export function parseTodo(input: string): ParsedTodo {
       }
 
       output.listLabel = word.slice(1);
-    }
-
-    if (word.startsWith('@')) {
+    } else if (word.startsWith('@')) {
       if (output.projectLabel) {
         throw new Error('Todo may only have one project');
       }
 
       output.projectLabel = word.slice(1);
-    }
-
-    if (word.startsWith('+')) {
+    } else if (word.startsWith('+')) {
       if (!output.tags) {
         output.tags = [];
       }
 
       output.tags = [...output.tags, word.slice(1)];
+    } else {
+      label.push(word);
     }
-
-    label.push(word);
   });
 
   output.label = label.join(' ');

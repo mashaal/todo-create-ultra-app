@@ -35,12 +35,17 @@ export function HomePage() {
         onSubmit={async (value) => {
           const { label, listLabel, projectLabel, tags } = parseTodo(value);
 
+          debugger;
+
           const data: TodoInput = {
             label,
           };
 
           if (listLabel) {
-            const existingList = await sdk.findListByLabel(listLabel);
+            const existingList = (await sdk.findListByLabel({
+              label: listLabel,
+            })).findListByLabel;
+
             if (existingList) {
               data.list = {
                 connect: existingList._id,
@@ -55,7 +60,10 @@ export function HomePage() {
           }
 
           if (projectLabel) {
-            const existingProject = await sdk.findProjectByLabel(listLabel);
+            const existingProject = (await sdk.findProjectByLabel({
+              label: projectLabel,
+            })).findProjectByLabel;
+
             if (existingProject) {
               data.project = {
                 connect: existingProject._id,
@@ -70,20 +78,27 @@ export function HomePage() {
           }
 
           if (tags) {
-            const existingTags = await sdk.findTagsByLabels(tags);
             data.tags = {};
-            if (existingTags.length > 0) {
-              data.tags.connect = existingTags.map((tag) => tag._id);
-            }
-            const newTags = tags.filter((tag) =>
-              !existingTags.map((tag) => tag.label).includes(tag)
-            );
-            if (newTags.length > 0) {
-              data.tags.create = newTags.map((tag) => ({ label: tag }));
-            }
+
+            await Promise.all(tags.map(async (tag) => {
+              const existingTag =
+                (await sdk.findTagByLabel({ label: tag })).findTagByLabel;
+
+              if (existingTag) {
+                data.tags = data.tags || {};
+                data.tags.connect = data.tags?.connect || [];
+                data.tags.connect.push(existingTag._id);
+              } else {
+                data.tags = data.tags || {};
+                data.tags.create = data.tags?.create || [];
+                data.tags.create.push({ label: tag });
+              }
+            }));
           }
 
           const result = await sdk.createTodo({ data });
+
+          console.log('result', result);
         }}
       />
       <ul>

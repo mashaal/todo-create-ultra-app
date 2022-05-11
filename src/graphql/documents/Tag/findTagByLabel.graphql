@@ -1,0 +1,5 @@
+query findTagByLabel($label: String!) {
+  findTagByLabel(label: $label) {
+    ...TagFragment
+  }
+}

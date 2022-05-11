@@ -52,8 +52,14 @@ enum Frequency {
 
 type Query {
   findAllLists: [List!]
+  findListByLabel(label: String!): List
+
   findAllProjects: [Project!]
-  findAllRepeats: [Repeat!]
+  findProjectByLabel(label: String!): Project
+
   findAllTags: [Tag!]
+  findTagByLabel(label: String!): Tag
+
+  findAllRepeats: [Repeat!]
   findAllTodos: [Todo!]
 }

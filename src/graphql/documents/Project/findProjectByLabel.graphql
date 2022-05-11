@@ -1,0 +1,5 @@
+query findProjectByLabel($label: String!) {
+  findProjectByLabel(label: $label) {
+    ...ProjectFragment
+  }
+}

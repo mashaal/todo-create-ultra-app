@@ -1,6 +1,9 @@
 fragment TodoFragment on Todo {
   _id
   label
+  list {
+    ...ListFragment
+  }
   project {
     ...ProjectFragment
   }
