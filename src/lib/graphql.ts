@@ -5,7 +5,7 @@ const root = Deno.env.get('root') || 'http://localhost:8000';
 
 export const endpoint = `${root}/api/graphql`;
 
-export const client = new GraphQLClient(endpoint);
+export const client = new GraphQLClient(endpoint, { fetch });
 
 if (isServer()) {
   client.setEndpoint('https://graphql.fauna.com/graphql');
