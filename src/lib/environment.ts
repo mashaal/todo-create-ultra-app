@@ -3,5 +3,5 @@ export function isBrowser() {
 }
 
 export function isServer() {
-  return typeof globalThis.Deno === 'object';
+  return typeof Deno === 'object';
 }
