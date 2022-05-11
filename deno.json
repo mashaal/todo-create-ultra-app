@@ -11,6 +11,8 @@
     "lib": [
       "deno.window",
       "es2020",
+      "esnext",
+      "dom",
       "esnext.asynciterable"
     ],
     "allowJs": true,
