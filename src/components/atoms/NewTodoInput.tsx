@@ -11,12 +11,18 @@ export function NewTodoInput({ onSubmit }: NewTodoInputProps) {
     <>
       <style>
         {`
+          .NewTodoForm {
+            display: flex;
+          }
+
           .NewTodoTextInput {
-            background-color: #000;
+            flex: 1;
+            margin-right: var(--size-2);
           }
         `}
       </style>
       <form
+        className='NewTodoForm'
         onSubmit={(event) => {
           event.preventDefault();
           if (onSubmit) {

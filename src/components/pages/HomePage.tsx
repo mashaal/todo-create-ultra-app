@@ -29,86 +29,110 @@ export function HomePage() {
     );
   }
 
+  async function handleSubmit(value: string) {
+    const { label, listLabel, projectLabel, tags } = parseTodo(value);
+
+    const data: TodoInput = {
+      label,
+    };
+
+    if (listLabel) {
+      const existingList = (await sdk.findListByLabel({
+        label: listLabel,
+      })).findListByLabel;
+
+      if (existingList) {
+        data.list = {
+          connect: existingList._id,
+        };
+      } else {
+        data.list = {
+          create: {
+            label: listLabel,
+          },
+        };
+      }
+    }
+
+    if (projectLabel) {
+      const existingProject = (await sdk.findProjectByLabel({
+        label: projectLabel,
+      })).findProjectByLabel;
+
+      if (existingProject) {
+        data.project = {
+          connect: existingProject._id,
+        };
+      } else {
+        data.project = {
+          create: {
+            label: projectLabel,
+          },
+        };
+      }
+    }
+
+    if (tags) {
+      data.tags = {};
+
+      await Promise.all(tags.map(async (tag) => {
+        const existingTag =
+          (await sdk.findTagByLabel({ label: tag })).findTagByLabel;
+
+        if (existingTag) {
+          data.tags = data.tags || {};
+          data.tags.connect = data.tags?.connect || [];
+          data.tags.connect.push(existingTag._id);
+        } else {
+          data.tags = data.tags || {};
+          data.tags.create = data.tags?.create || [];
+          data.tags.create.push({ label: tag });
+        }
+      }));
+    }
+
+    const result = await sdk.createTodo({ data });
+
+    console.log('result', result);
+  }
+
   return (
     <>
-      <h1>Home</h1>
-      <NewTodoInput
-        onSubmit={async (value) => {
-          const { label, listLabel, projectLabel, tags } = parseTodo(value);
-
-          const data: TodoInput = {
-            label,
-          };
-
-          if (listLabel) {
-            const existingList = (await sdk.findListByLabel({
-              label: listLabel,
-            })).findListByLabel;
-
-            if (existingList) {
-              data.list = {
-                connect: existingList._id,
-              };
-            } else {
-              data.list = {
-                create: {
-                  label: listLabel,
-                },
-              };
-            }
+      <style>
+        {`
+          .InputContainer {
+            display: flex;
+            flex-direction: column;
+            padding-left: var(--size-12);
+            padding-right: var(--size-12);
           }
 
-          if (projectLabel) {
-            const existingProject = (await sdk.findProjectByLabel({
-              label: projectLabel,
-            })).findProjectByLabel;
-
-            if (existingProject) {
-              data.project = {
-                connect: existingProject._id,
-              };
-            } else {
-              data.project = {
-                create: {
-                  label: projectLabel,
-                },
-              };
-            }
+          ul.TodoList {
+            margin-top: var(--size-3);
+            margin-bottom: 0;
+            padding-left: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
           }
-
-          if (tags) {
-            data.tags = {};
-
-            await Promise.all(tags.map(async (tag) => {
-              const existingTag =
-                (await sdk.findTagByLabel({ label: tag })).findTagByLabel;
-
-              if (existingTag) {
-                data.tags = data.tags || {};
-                data.tags.connect = data.tags?.connect || [];
-                data.tags.connect.push(existingTag._id);
-              } else {
-                data.tags = data.tags || {};
-                data.tags.create = data.tags?.create || [];
-                data.tags.create.push({ label: tag });
-              }
-            }));
+          ul.TodoList li {
           }
-
-          const result = await sdk.createTodo({ data });
-
-          console.log('result', result);
-        }}
-      />
-      <ul>
-        {data?.findAllTodos?.data.map((todo) => {
-          return (
-            <li>
-              <Link to='/todos'>{todo?.label}</Link>
-            </li>
-          );
-        })}
-      </ul>
+        `}
+      </style>
+      <div className='InputContainer'>
+        <NewTodoInput
+          onSubmit={handleSubmit}
+        />
+        <ul className='TodoList'>
+          {data?.findAllTodos?.data.map((todo) => {
+            return (
+              <li>
+                <Link to='/todos'>{todo?.label}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 }
