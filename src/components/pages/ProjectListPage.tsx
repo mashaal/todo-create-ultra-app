@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import { getSDK } from '../../../lib/graphql.ts';
+import { getSDK } from '../../lib/graphql.ts';
+import { Loader } from '../atoms/Loader.tsx';
+import { Spinner } from '../atoms/Spinner.tsx';
 
 export function ProjectListPage() {
   const sdk = getSDK();
@@ -10,9 +12,9 @@ export function ProjectListPage() {
 
   if (!error && !data) {
     return (
-      <>
-        <h1>Loading</h1>
-      </>
+      <Loader>
+        <Spinner />
+      </Loader>
     );
   }
 

@@ -9,6 +9,13 @@ export function NewTodoInput({ onSubmit }: NewTodoInputProps) {
 
   return (
     <>
+      <style>
+        {`
+          .NewTodoTextInput {
+            background-color: #000;
+          }
+        `}
+      </style>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -18,6 +25,7 @@ export function NewTodoInput({ onSubmit }: NewTodoInputProps) {
         }}
       >
         <input
+          className='NewTodoTextInput'
           type='text'
           placeholder='New todo...'
           value={value}
@@ -25,7 +33,7 @@ export function NewTodoInput({ onSubmit }: NewTodoInputProps) {
             setValue(event.target.value);
           }}
         />
-        <input type='submit' value='Add' />
+        <input className='NewTodoSubmitInput' type='submit' value='Add' />
       </form>
     </>
   );

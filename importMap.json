@@ -1,5 +1,6 @@
 {
   "imports": {
+    "@stitches/react": "https://esm.sh/@stitches/react@v1.2.8",
     "app": "./src/app.tsx",
     "graphql-request": "https://esm.sh/graphql-request@v4.2.0",
     "graphql-request/dist/types": "https://esm.sh/graphql-request@v4.2.0/dist/types",
@@ -11,6 +12,7 @@
     "react-helmet": "https://esm.sh/react-helmet-async?deps=react@18",
     "swr": "https://esm.sh/swr?deps=react@18",
     "ultra/cache": "https://deno.land/x/ultra@v1.0.1/cache.js",
-    "wouter": "https://esm.sh/wouter?deps=react@18"
+    "wouter": "https://esm.sh/wouter?deps=react@18",
+    "~/": "./src/"
   }
 }

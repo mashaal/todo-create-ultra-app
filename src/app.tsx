@@ -6,13 +6,15 @@ import { SWRConfig } from 'swr';
 // Can't put this in the importMap because SWC will cause an error on deploy.
 import { Cache } from 'https://deno.land/x/ultra@v1.0.1/src/types.ts';
 
-import { HomePage } from './components/pages/HomePage/HomePage.tsx';
-import { LayoutTemplate } from './components/templates/LayoutTemplate/LayoutTemplate.tsx';
-import { ListListPage } from './components/pages/ListListPage/ListListPage.tsx';
-import { ListShowPage } from './components/pages/ListShowPage/ListShowPage.tsx';
-import { NotFoundPage } from './components/pages/NotFoundPage/NotFoundPage.tsx';
-import { ProjectListPage } from './components/pages/ProjectListPage/ProjectListPage.tsx';
-import { TagListPage } from './components/pages/TagListPage/TagListPage.tsx';
+import { HomePage } from './components/pages/HomePage.tsx';
+import { LayoutTemplate } from './components/templates/LayoutTemplate.tsx';
+import { ListListPage } from './components/pages/ListListPage.tsx';
+import { ListShowPage } from './components/pages/ListShowPage.tsx';
+import { Loader } from './components/atoms/Loader.tsx';
+import { NotFoundPage } from './components/pages/NotFoundPage.tsx';
+import { ProjectListPage } from './components/pages/ProjectListPage.tsx';
+import { Spinner } from './components/atoms/Spinner.tsx';
+import { TagListPage } from './components/pages/TagListPage.tsx';
 
 const options = (cache: Cache) => ({
   provider: () => ultraCache(cache),
@@ -24,11 +26,16 @@ const Ultra = ({ cache }: { cache: Cache }) => {
     <SWRConfig value={options(cache)}>
       <Helmet>
         <title>Ultra</title>
-        <link rel='stylesheet' href='/normalize.css' />
         <link rel='stylesheet' href='/style.css' />
       </Helmet>
       <LayoutTemplate>
-        <Suspense>
+        <Suspense
+          fallback={
+            <Loader>
+              <Spinner />
+            </Loader>
+          }
+        >
           <Switch>
             <Route path='/'>
               <HomePage />

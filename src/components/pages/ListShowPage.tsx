@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { getSDK } from '../../../lib/graphql.ts';
+import { getSDK } from '../../lib/graphql.ts';
+import { Loader } from '../atoms/Loader.tsx';
+import { Spinner } from '../atoms/Spinner.tsx';
 
 export type ListShowPageProps = {
   id: string;
@@ -13,9 +15,9 @@ export function ListShowPage({ id }: ListShowPageProps) {
 
   if (!error && !data) {
     return (
-      <>
-        <h1>Loading</h1>
-      </>
+      <Loader>
+        <Spinner />
+      </Loader>
     );
   }
 

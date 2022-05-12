@@ -1,8 +1,13 @@
+@import 'https://unpkg.com/open-props';
+@import 'https://unpkg.com/open-props/normalize.min.css';
+
 html,
 body,
 #ultra {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
 }

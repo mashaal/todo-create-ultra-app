@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
+
 import { getSdkWithHooks } from '../graphql/generated/client.ts';
-import { isServer } from './environment.ts';
+import { isServer } from '../lib/environment.ts';
 
 export let endpoint = '/api/graphql';
 export let client = new GraphQLClient(endpoint, { fetch });

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import { NewTodoInput } from '../../atoms/NewTodoInput/NewTodoInput.tsx';
-import { TodoInput } from '../../../graphql/generated/client.ts';
-import { getSDK } from '../../../lib/graphql.ts';
-import { parseTodo } from '../../../lib/todo.ts';
+import { Loader } from '../atoms/Loader.tsx';
+import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
+import { Spinner } from '../atoms/Spinner.tsx';
+import { TodoInput } from '../../graphql/generated/client.ts';
+import { getSDK } from '../../lib/graphql.ts';
+import { parseTodo } from '../../lib/todo.ts';
 
 export function HomePage() {
   const sdk = getSDK();
@@ -13,9 +15,9 @@ export function HomePage() {
 
   if (!error && !data) {
     return (
-      <>
-        <h1>Loading</h1>
-      </>
+      <Loader>
+        <Spinner />
+      </Loader>
     );
   }
 
