@@ -1,7 +1,15 @@
 {
   "imports": {
+    "@envelop/core": "https://esm.sh/@envelop/core",
+    "@envelop/graphql-jit": "https://esm.sh/@envelop/graphql-jit",
+    "@envelop/graphql-modules": "https://esm.sh/@envelop/graphql-modules",
+    "@graphql-tools/schema": "https://esm.sh/@graphql-tools/schema",
+    "@graphql-tools/utils": "https://esm.sh/@graphql-tools/utils",
+    "@graphql-yoga/common": "https://cdn.skypack.dev/@graphql-yoga/common?dts",
     "@stitches/react": "https://esm.sh/@stitches/react@v1.2.8",
     "app": "./src/app.tsx",
+    "graphql": "https://esm.sh/graphql@v16.5.0",
+    "graphql-config": "https://esm.sh/graphql-config@v4.3.0",
     "graphql-request": "https://esm.sh/graphql-request@v4.2.0",
     "graphql-request/dist/types": "https://esm.sh/graphql-request@v4.2.0/dist/types",
     "graphql-request/dist/types.dom": "https://esm.sh/graphql-request@v4.2.0/dist/types.dom",
@@ -10,6 +18,7 @@
     "react-dom": "https://esm.sh/react-dom@18",
     "react-dom/server": "https://esm.sh/react-dom@18/server",
     "react-helmet": "https://esm.sh/react-helmet-async?deps=react@18",
+    "std/": "https://deno.land/std@0.139.0/",
     "swr": "https://esm.sh/swr?deps=react@18",
     "ultra/cache": "https://deno.land/x/ultra@v1.0.1/cache.js",
     "wouter": "https://esm.sh/wouter?deps=react@18",

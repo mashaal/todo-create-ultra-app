@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-import { getSdkWithHooks } from '../graphql/generated/client.ts';
+import { getSdkWithHooks } from '../graphql/faunadb/generated/client.ts';
 import { isServer } from '../lib/environment.ts';
 
 export let endpoint = '/api/graphql';
