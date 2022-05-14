@@ -1,0 +1,5 @@
+mutation updateTodo($id: ID!, $data: UpdateTodoInput!) {
+  updateTodo(id: $id, data: $data) {
+    ...TodoFragment
+  }
+}

@@ -1,0 +1,5 @@
+mutation createList($data: CreateListInput!) {
+  createList(data: $data) {
+    ...ListFragment
+  }
+}

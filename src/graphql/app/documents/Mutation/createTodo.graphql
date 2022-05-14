@@ -1,0 +1,5 @@
+mutation createTodo($data: CreateTodoInput!) {
+  createTodo(data: $data) {
+    ...TodoFragment
+  }
+}

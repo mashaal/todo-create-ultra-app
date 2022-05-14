@@ -1,5 +1,5 @@
 fragment TodoFragment on Todo {
-  _id
+  id
   label
   completed
   list {
@@ -12,9 +12,9 @@ fragment TodoFragment on Todo {
     ...TagFragment
   }
   priority
-  repeat {
-    ...RepeatFragment
-  }
+  # repeat {
+  #   ...RepeatFragment
+  # }
   description
   dueDate
   startDate

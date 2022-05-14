@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import { getSDK } from '../../lib/graphql.ts';
+import { getSDK } from '../../graphql/app/client.ts';
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 
@@ -30,14 +30,14 @@ export function ProjectListPage() {
     <>
       <h1>Projects</h1>
       <ul>
-        {data?.findAllProjects?.data?.map((list) => {
+        {data?.findAllProjects?.map((list) => {
           if (!list) {
             return;
           }
 
           return (
-            <li key={list._id}>
-              <Link to={`/projects/${list._id}`}>{list.label}</Link>
+            <li key={list.id}>
+              <Link to={`/projects/${list.id}`}>{list.label}</Link>
             </li>
           );
         })}

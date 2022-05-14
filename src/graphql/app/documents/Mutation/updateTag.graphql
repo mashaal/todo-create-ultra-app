@@ -1,0 +1,5 @@
+mutation updateTag($id: ID!, $data: UpdateTagInput!) {
+  updateTag(id: $id, data: $data) {
+    ...TagFragment
+  }
+}

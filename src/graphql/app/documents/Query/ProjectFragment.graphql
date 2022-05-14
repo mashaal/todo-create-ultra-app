@@ -1,3 +1,4 @@
 fragment ProjectFragment on Project {
+  id
   label
 }

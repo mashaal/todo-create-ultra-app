@@ -1,19 +1,54 @@
 scalar Date
 
+input CreateListInput {
+  label: String!
+}
+
+input UpdateListInput {
+  label: String!
+}
+
 type List {
+  id: ID!
   label: String!
   todos: [Todo!]!
 }
 
+input CreateTodoInput {
+  label: String!
+  completed: Boolean!
+  list: String
+  project: String
+  tags: [String!]
+  priority: Priority
+  description: String
+  dueDate: Date
+  startDate: Date
+  endDate: Date
+}
+
+input UpdateTodoInput {
+  id: ID!
+  label: String!
+  completed: Boolean!
+  list: String
+  project: String
+  tags: [String!]
+  priority: Priority
+  description: String
+  dueDate: Date
+  startDate: Date
+  endDate: Date
+}
+
 type Todo {
-  _id: ID!
+  id: ID!
   label: String!
   completed: Boolean!
   list: List
   project: Project
   tags: [Tag!]!
   priority: Priority
-  repeat: Repeat
   description: String
   dueDate: Date
   startDate: Date
@@ -22,12 +57,32 @@ type Todo {
   updatedAt: Date
 }
 
+input CreateProjectInput {
+  label: String!
+}
+
+input UpdateProjectInput {
+  id: ID!
+  label: String!
+}
+
 type Project {
+  id: ID!
   label: String!
   todos: [Todo!]!
 }
 
+input CreateTagInput {
+  label: String!
+}
+
+input UpdateTagInput {
+  id: ID!
+  label: String!
+}
+
 type Tag {
+  id: ID!
   label: String!
   todos: [Todo!]!
 }
@@ -37,11 +92,6 @@ enum Priority {
   MEDIUM
   HIGH
   URGENT
-}
-
-type Repeat {
-  frequency: Frequency!
-  interval: Int!
 }
 
 enum Frequency {
@@ -71,4 +121,22 @@ type Query {
   findTodosByTags(tagLabels: [String!]!): [Todo!]!
   findTodoById(id: ID!): Todo
   findTodoByLabel(label: String!): Todo
+}
+
+type Mutation {
+  createList(data: CreateListInput!): List!
+  updateList(id: ID!, data: UpdateListInput!): List!
+  removeList(id: ID!): List!
+
+  createProject(data: CreateProjectInput!): Project!
+  updateProject(id: ID!, data: UpdateProjectInput!): Project!
+  removeProject(id: ID!): Project!
+
+  createTag(data: CreateTagInput!): Tag!
+  updateTag(id: ID!, data: UpdateTagInput!): Tag!
+  removeTag(id: ID!): Tag!
+
+  createTodo(data: CreateTodoInput!): Todo!
+  updateTodo(id: ID!, data: UpdateTodoInput!): Todo!
+  removeTodo(id: ID!): Todo!
 }

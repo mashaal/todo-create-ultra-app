@@ -5,7 +5,7 @@ import { Loader } from '../atoms/Loader.tsx';
 import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 import { TodoInput } from '../../graphql/faunadb/generated/client.ts';
-import { getSDK } from '../../graphql/faunadb/client.ts';
+import { getSDK } from '../../graphql/app/client.ts';
 import { parseTodo } from '../../lib/todo.ts';
 
 export function HomePage() {
@@ -43,7 +43,7 @@ export function HomePage() {
 
       if (existingList) {
         data.list = {
-          connect: existingList._id,
+          connect: existingList.id,
         };
       } else {
         data.list = {
@@ -61,7 +61,7 @@ export function HomePage() {
 
       if (existingProject) {
         data.project = {
-          connect: existingProject._id,
+          connect: existingProject.id,
         };
       } else {
         data.project = {
@@ -82,7 +82,7 @@ export function HomePage() {
         if (existingTag) {
           data.tags = data.tags || {};
           data.tags.connect = data.tags?.connect || [];
-          data.tags.connect.push(existingTag._id);
+          data.tags.connect.push(existingTag.id);
         } else {
           data.tags = data.tags || {};
           data.tags.create = data.tags?.create || [];
@@ -91,9 +91,8 @@ export function HomePage() {
       }));
     }
 
-    const result = await sdk.createTodo({ data });
-
-    console.log('result', result);
+    // const result = await sdk.createTodo({ data });
+    // console.log('result', result);
   }
 
   return (
@@ -124,7 +123,7 @@ export function HomePage() {
           onSubmit={handleSubmit}
         />
         <ul className='TodoList'>
-          {data?.findAllTodos?.data.map((todo) => {
+          {data?.findAllTodos?.map((todo) => {
             return (
               <li>
                 <Link to='/todos'>{todo?.label}</Link>

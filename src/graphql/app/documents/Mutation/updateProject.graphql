@@ -1,0 +1,5 @@
+mutation updateProject($id: ID!, $data: UpdateProjectInput!) {
+  updateProject(id: $id, data: $data) {
+    ...ProjectFragment
+  }
+}

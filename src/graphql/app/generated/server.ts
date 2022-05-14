@@ -15,6 +15,31 @@ export type Scalars = {
   Date: any;
 };
 
+export type CreateListInput = {
+  label: Scalars['String'];
+};
+
+export type CreateProjectInput = {
+  label: Scalars['String'];
+};
+
+export type CreateTagInput = {
+  label: Scalars['String'];
+};
+
+export type CreateTodoInput = {
+  completed: Scalars['Boolean'];
+  description?: InputMaybe<Scalars['String']>;
+  dueDate?: InputMaybe<Scalars['Date']>;
+  endDate?: InputMaybe<Scalars['Date']>;
+  label: Scalars['String'];
+  list?: InputMaybe<Scalars['String']>;
+  priority?: InputMaybe<Priority>;
+  project?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['Date']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+};
+
 export enum Frequency {
   Days = 'DAYS',
   Hours = 'HOURS',
@@ -25,8 +50,89 @@ export enum Frequency {
 
 export type List = {
   __typename?: 'List';
+  id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createList: List;
+  createProject: Project;
+  createTag: Tag;
+  createTodo: Todo;
+  removeList: List;
+  removeProject: Project;
+  removeTag: Tag;
+  removeTodo: Todo;
+  updateList: List;
+  updateProject: Project;
+  updateTag: Tag;
+  updateTodo: Todo;
+};
+
+
+export type MutationCreateListArgs = {
+  data: CreateListInput;
+};
+
+
+export type MutationCreateProjectArgs = {
+  data: CreateProjectInput;
+};
+
+
+export type MutationCreateTagArgs = {
+  data: CreateTagInput;
+};
+
+
+export type MutationCreateTodoArgs = {
+  data: CreateTodoInput;
+};
+
+
+export type MutationRemoveListArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationRemoveProjectArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationRemoveTagArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationRemoveTodoArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateListArgs = {
+  data: UpdateListInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateProjectArgs = {
+  data: UpdateProjectInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateTagArgs = {
+  data: UpdateTagInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateTodoArgs = {
+  data: UpdateTodoInput;
+  id: Scalars['ID'];
 };
 
 export enum Priority {
@@ -38,6 +144,7 @@ export enum Priority {
 
 export type Project = {
   __typename?: 'Project';
+  id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
 };
@@ -116,34 +223,56 @@ export type QueryFindTodosByTagsArgs = {
   tagLabels: Array<Scalars['String']>;
 };
 
-export type Repeat = {
-  __typename?: 'Repeat';
-  frequency: Frequency;
-  interval: Scalars['Int'];
-};
-
 export type Tag = {
   __typename?: 'Tag';
+  id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
 };
 
 export type Todo = {
   __typename?: 'Todo';
-  _id: Scalars['ID'];
   completed: Scalars['Boolean'];
   createdAt?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
+  id: Scalars['ID'];
   label: Scalars['String'];
   list?: Maybe<List>;
   priority?: Maybe<Priority>;
   project?: Maybe<Project>;
-  repeat?: Maybe<Repeat>;
   startDate?: Maybe<Scalars['Date']>;
   tags: Array<Tag>;
   updatedAt?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateListInput = {
+  label: Scalars['String'];
+};
+
+export type UpdateProjectInput = {
+  id: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type UpdateTagInput = {
+  id: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type UpdateTodoInput = {
+  completed: Scalars['Boolean'];
+  description?: InputMaybe<Scalars['String']>;
+  dueDate?: InputMaybe<Scalars['Date']>;
+  endDate?: InputMaybe<Scalars['Date']>;
+  id: Scalars['ID'];
+  label: Scalars['String'];
+  list?: InputMaybe<Scalars['String']>;
+  priority?: InputMaybe<Priority>;
+  project?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['Date']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
@@ -216,33 +345,47 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateListInput: CreateListInput;
+  CreateProjectInput: CreateProjectInput;
+  CreateTagInput: CreateTagInput;
+  CreateTodoInput: CreateTodoInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Frequency: Frequency;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   List: ResolverTypeWrapper<List>;
+  Mutation: ResolverTypeWrapper<{}>;
   Priority: Priority;
   Project: ResolverTypeWrapper<Project>;
   Query: ResolverTypeWrapper<{}>;
-  Repeat: ResolverTypeWrapper<Repeat>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Tag: ResolverTypeWrapper<Tag>;
   Todo: ResolverTypeWrapper<Todo>;
+  UpdateListInput: UpdateListInput;
+  UpdateProjectInput: UpdateProjectInput;
+  UpdateTagInput: UpdateTagInput;
+  UpdateTodoInput: UpdateTodoInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreateListInput: CreateListInput;
+  CreateProjectInput: CreateProjectInput;
+  CreateTagInput: CreateTagInput;
+  CreateTodoInput: CreateTodoInput;
   Date: Scalars['Date'];
   ID: Scalars['ID'];
-  Int: Scalars['Int'];
   List: List;
+  Mutation: {};
   Project: Project;
   Query: {};
-  Repeat: Repeat;
   String: Scalars['String'];
   Tag: Tag;
   Todo: Todo;
+  UpdateListInput: UpdateListInput;
+  UpdateProjectInput: UpdateProjectInput;
+  UpdateTagInput: UpdateTagInput;
+  UpdateTodoInput: UpdateTodoInput;
 };
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -250,12 +393,29 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type ListResolvers<ContextType = any, ParentType extends ResolversParentTypes['List'] = ResolversParentTypes['List']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createList?: Resolver<ResolversTypes['List'], ParentType, ContextType, RequireFields<MutationCreateListArgs, 'data'>>;
+  createProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'data'>>;
+  createTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationCreateTagArgs, 'data'>>;
+  createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'data'>>;
+  removeList?: Resolver<ResolversTypes['List'], ParentType, ContextType, RequireFields<MutationRemoveListArgs, 'id'>>;
+  removeProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationRemoveProjectArgs, 'id'>>;
+  removeTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationRemoveTagArgs, 'id'>>;
+  removeTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationRemoveTodoArgs, 'id'>>;
+  updateList?: Resolver<ResolversTypes['List'], ParentType, ContextType, RequireFields<MutationUpdateListArgs, 'data' | 'id'>>;
+  updateProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationUpdateProjectArgs, 'data' | 'id'>>;
+  updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'data' | 'id'>>;
+  updateTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'data' | 'id'>>;
+};
+
 export type ProjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -279,30 +439,24 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   findTodosByTags?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<QueryFindTodosByTagsArgs, 'tagLabels'>>;
 };
 
-export type RepeatResolvers<ContextType = any, ParentType extends ResolversParentTypes['Repeat'] = ResolversParentTypes['Repeat']> = {
-  frequency?: Resolver<ResolversTypes['Frequency'], ParentType, ContextType>;
-  interval?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type TagResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TodoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
-  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dueDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   endDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   list?: Resolver<Maybe<ResolversTypes['List']>, ParentType, ContextType>;
   priority?: Resolver<Maybe<ResolversTypes['Priority']>, ParentType, ContextType>;
   project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
-  repeat?: Resolver<Maybe<ResolversTypes['Repeat']>, ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
@@ -312,9 +466,9 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   Date?: GraphQLScalarType;
   List?: ListResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Repeat?: RepeatResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Todo?: TodoResolvers<ContextType>;
 };

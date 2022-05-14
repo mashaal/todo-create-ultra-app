@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getSDK } from '../../lib/graphql.ts';
+import { getSDK } from '../../graphql/app/client.ts';
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 
@@ -29,7 +29,7 @@ export function ListShowPage({ id }: ListShowPageProps) {
     );
   }
 
-  const label = data?.findListByID?.label;
+  const label = data?.findListById?.label;
 
   return (
     <>
