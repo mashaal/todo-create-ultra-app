@@ -11,7 +11,7 @@ input UpdateListInput {
 type List {
   id: ID!
   label: String!
-  todos: [Todo!]!
+  todos: [Todo!]
   createdAt: Date!
   updatedAt: Date!
 }
@@ -28,7 +28,7 @@ input UpdateProjectInput {
 type Project {
   id: ID!
   label: String!
-  todos: [Todo!]!
+  todos: [Todo!]
   createdAt: Date!
   updatedAt: Date!
 }
@@ -45,14 +45,14 @@ input UpdateTagInput {
 type Tag {
   id: ID!
   label: String!
-  todos: [Todo!]!
+  todos: [Todo!]
   createdAt: Date!
   updatedAt: Date!
 }
 
 input CreateTodoInput {
   label: String!
-  completed: Boolean!
+  # completed: Boolean!
   list: String
   project: String
   tags: [String!]

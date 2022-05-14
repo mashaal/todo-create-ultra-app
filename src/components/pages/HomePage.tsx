@@ -91,8 +91,8 @@ export function HomePage() {
       }));
     }
 
-    // const result = await sdk.createTodo({ data });
-    // console.log('result', result);
+    const result = await sdk.createTodo({ data });
+    console.log('result', result);
   }
 
   return (

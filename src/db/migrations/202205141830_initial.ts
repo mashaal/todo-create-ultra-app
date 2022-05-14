@@ -37,6 +37,7 @@ export async function up(db: Kysely<Database>): Promise<void> {
         (col) => col.references('project.id').onDelete('restrict'),
       )
       .addColumn('priority', 'varchar')
+      .addColumn('description', 'text')
       .addColumn('dueDate', 'date')
       .addColumn('startDate', 'date')
       .addColumn('endDate', 'date')
