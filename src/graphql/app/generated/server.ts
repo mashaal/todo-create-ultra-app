@@ -50,9 +50,11 @@ export enum Frequency {
 
 export type List = {
   __typename?: 'List';
+  createdAt: Scalars['Date'];
   id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
+  updatedAt: Scalars['Date'];
 };
 
 export type Mutation = {
@@ -144,9 +146,11 @@ export enum Priority {
 
 export type Project = {
   __typename?: 'Project';
+  createdAt: Scalars['Date'];
   id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
+  updatedAt: Scalars['Date'];
 };
 
 export type Query = {
@@ -225,15 +229,17 @@ export type QueryFindTodosByTagsArgs = {
 
 export type Tag = {
   __typename?: 'Tag';
+  createdAt: Scalars['Date'];
   id: Scalars['ID'];
   label: Scalars['String'];
   todos: Array<Todo>;
+  updatedAt: Scalars['Date'];
 };
 
 export type Todo = {
   __typename?: 'Todo';
   completed: Scalars['Boolean'];
-  createdAt?: Maybe<Scalars['Date']>;
+  createdAt: Scalars['Date'];
   description?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
@@ -243,8 +249,8 @@ export type Todo = {
   priority?: Maybe<Priority>;
   project?: Maybe<Project>;
   startDate?: Maybe<Scalars['Date']>;
-  tags: Array<Tag>;
-  updatedAt?: Maybe<Scalars['Date']>;
+  tags?: Maybe<Array<Tag>>;
+  updatedAt: Scalars['Date'];
 };
 
 export type UpdateListInput = {
@@ -393,9 +399,11 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type ListResolvers<ContextType = any, ParentType extends ResolversParentTypes['List'] = ResolversParentTypes['List']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -415,9 +423,11 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ProjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -440,15 +450,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type TagResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TodoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dueDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   endDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
@@ -458,8 +470,8 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
   priority?: Resolver<Maybe<ResolversTypes['Priority']>, ParentType, ContextType>;
   project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
-  tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

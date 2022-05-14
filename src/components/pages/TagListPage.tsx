@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import { getSDK } from '../../lib/graphql.ts';
+import { getSDK } from '../../graphql/app/client.ts';
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 
@@ -26,7 +26,7 @@ export function TagListPage() {
     );
   }
 
-  const tags = data?.findAllTags?.data;
+  const tags = data?.findAllTags;
 
   if (!tags) {
     throw new Error('No tags found');
@@ -58,8 +58,8 @@ export function TagListPage() {
           }
 
           return (
-            <li key={list._id}>
-              <Link to={`/tags/${list._id}`}>{list.label}</Link>
+            <li key={list.id}>
+              <Link to={`/tags/${list.id}`}>{list.label}</Link>
             </li>
           );
         })}

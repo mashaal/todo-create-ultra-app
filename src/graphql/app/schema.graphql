@@ -12,6 +12,42 @@ type List {
   id: ID!
   label: String!
   todos: [Todo!]!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+input CreateProjectInput {
+  label: String!
+}
+
+input UpdateProjectInput {
+  id: ID!
+  label: String!
+}
+
+type Project {
+  id: ID!
+  label: String!
+  todos: [Todo!]!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+input CreateTagInput {
+  label: String!
+}
+
+input UpdateTagInput {
+  id: ID!
+  label: String!
+}
+
+type Tag {
+  id: ID!
+  label: String!
+  todos: [Todo!]!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 input CreateTodoInput {
@@ -47,44 +83,14 @@ type Todo {
   completed: Boolean!
   list: List
   project: Project
-  tags: [Tag!]!
+  tags: [Tag!]
   priority: Priority
   description: String
   dueDate: Date
   startDate: Date
   endDate: Date
-  createdAt: Date
-  updatedAt: Date
-}
-
-input CreateProjectInput {
-  label: String!
-}
-
-input UpdateProjectInput {
-  id: ID!
-  label: String!
-}
-
-type Project {
-  id: ID!
-  label: String!
-  todos: [Todo!]!
-}
-
-input CreateTagInput {
-  label: String!
-}
-
-input UpdateTagInput {
-  id: ID!
-  label: String!
-}
-
-type Tag {
-  id: ID!
-  label: String!
-  todos: [Todo!]!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 enum Priority {

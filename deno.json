@@ -8,7 +8,8 @@
     "server:production": "deno run -A --location=http://localhost:8000 --unstable --no-check server.ts",
     "codegen": "deno task codegen:app && deno task codegen:faunadb",
     "codegen:app": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project app",
-    "codegen:faunadb": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project faunadb"
+    "codegen:faunadb": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project faunadb",
+    "db:migrate": "deno run -A --no-check src/db/migrate.ts"
   },
   "importMap": "importMap.json",
   "compilerOptions": {
