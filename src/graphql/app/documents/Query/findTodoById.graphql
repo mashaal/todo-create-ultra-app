@@ -1,0 +1,5 @@
+query findTodoById($id: ID!) {
+  findTodoById(id: $id) {
+    ...TodoFragment
+  }
+}

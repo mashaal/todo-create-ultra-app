@@ -1,7 +1,0 @@
-query allTodos {
-  allTodos {
-    id
-    label
-    complete
-  }
-}

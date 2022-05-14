@@ -1,0 +1,5 @@
+query findTodosByTags($tagLabels: [String!]!) {
+  findTodosByTags(tagLabels: $tagLabels) {
+    ...TodoFragment
+  }
+}

@@ -1,0 +1,5 @@
+query findTodosByProject($projectLabel: String!) {
+  findTodosByProject(projectLabel: $projectLabel) {
+    ...TodoFragment
+  }
+}

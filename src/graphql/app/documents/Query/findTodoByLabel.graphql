@@ -1,0 +1,5 @@
+query findTodoByLabel($label: String!) {
+  findTodoByLabel(label: $label) {
+    ...TodoFragment
+  }
+}

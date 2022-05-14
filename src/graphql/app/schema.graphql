@@ -1,9 +1,74 @@
-type Todo {
-  id: ID!
+scalar Date
+
+type List {
   label: String!
-  complete: Boolean!
+  todos: [Todo!]!
+}
+
+type Todo {
+  _id: ID!
+  label: String!
+  completed: Boolean!
+  list: List
+  project: Project
+  tags: [Tag!]!
+  priority: Priority
+  repeat: Repeat
+  description: String
+  dueDate: Date
+  startDate: Date
+  endDate: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Project {
+  label: String!
+  todos: [Todo!]!
+}
+
+type Tag {
+  label: String!
+  todos: [Todo!]!
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+type Repeat {
+  frequency: Frequency!
+  interval: Int!
+}
+
+enum Frequency {
+  HOURS
+  DAYS
+  WEEKS
+  MONTHS
+  YEARS
 }
 
 type Query {
-  allTodos: [Todo!]!
+  findAllLists: [List!]!
+  findListById(id: ID!): List
+  findListByLabel(label: String!): List
+
+  findAllProjects: [Project!]!
+  findProjectById(id: ID!): Project
+  findProjectByLabel(label: String!): Project
+
+  findAllTags: [Tag!]!
+  findTagById(id: ID!): Tag
+  findTagByLabel(label: String!): Tag
+
+  findAllTodos: [Todo!]!
+  findTodosByList(listLabel: String!): [Todo!]!
+  findTodosByProject(projectLabel: String!): [Todo!]!
+  findTodosByTags(tagLabels: [String!]!): [Todo!]!
+  findTodoById(id: ID!): Todo
+  findTodoByLabel(label: String!): Todo
 }

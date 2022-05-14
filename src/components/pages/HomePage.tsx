@@ -5,7 +5,7 @@ import { Loader } from '../atoms/Loader.tsx';
 import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 import { TodoInput } from '../../graphql/faunadb/generated/client.ts';
-import { getSDK } from '../../lib/graphql.ts';
+import { getSDK } from '../../graphql/faunadb/client.ts';
 import { parseTodo } from '../../lib/todo.ts';
 
 export function HomePage() {

@@ -1,0 +1,5 @@
+query findAllProjects {
+  findAllProjects {
+    ...ProjectFragment
+  }
+}

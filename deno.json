@@ -6,8 +6,9 @@
     "vendor": "importMap=importMap.json deno run -A --unstable https://deno.land/x/ultra@v1.0.1/vendor.ts",
     "server:development": "mode=dev deno run -A --location=http://localhost:8000 --unstable --no-check server.ts",
     "server:production": "deno run -A --location=http://localhost:8000 --unstable --no-check server.ts",
-    "codegen": "deno task codegen:app",
-    "codegen:app": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project app"
+    "codegen": "deno task codegen:app && deno task codegen:faunadb",
+    "codegen:app": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project app",
+    "codegen:faunadb": "./node_modules/.bin/graphql-codegen --config graphql.config.ts --project faunadb"
   },
   "importMap": "importMap.json",
   "compilerOptions": {

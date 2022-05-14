@@ -1,0 +1,3 @@
+fragment ListFragment on List {
+  label
+}

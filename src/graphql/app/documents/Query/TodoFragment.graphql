@@ -1,0 +1,24 @@
+fragment TodoFragment on Todo {
+  _id
+  label
+  completed
+  list {
+    ...ListFragment
+  }
+  project {
+    ...ProjectFragment
+  }
+  tags {
+    ...TagFragment
+  }
+  priority
+  repeat {
+    ...RepeatFragment
+  }
+  description
+  dueDate
+  startDate
+  endDate
+  createdAt
+  updatedAt
+}

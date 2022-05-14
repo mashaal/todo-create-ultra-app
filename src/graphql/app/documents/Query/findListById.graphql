@@ -1,0 +1,5 @@
+query findListById($id: ID!) {
+  findListById(id: $id) {
+    ...ListFragment
+  }
+}
