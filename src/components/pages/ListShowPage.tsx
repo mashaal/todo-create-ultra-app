@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getSDK } from '../../graphql/app/client.ts';
+import { getSDK } from '../../graphql/client.ts';
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 

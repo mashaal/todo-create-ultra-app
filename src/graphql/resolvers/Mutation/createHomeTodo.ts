@@ -1,8 +1,8 @@
 import { Context } from '../../server.ts';
-import { Database } from '../../../../db/schema.ts';
+import { Database } from '../../../db/schema.ts';
 import { InsertObject, Selection } from 'kysely';
 import { MutationResolvers, Priority, Todo } from '../../generated/server.ts';
-import { db } from '../../../../db/client.ts';
+import { db } from '../../../db/client.ts';
 
 export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
   async (

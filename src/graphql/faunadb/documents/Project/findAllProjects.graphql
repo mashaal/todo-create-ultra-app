@@ -1,7 +1,0 @@
-query findAllProjects {
-  findAllProjects {
-    data {
-      ...ProjectFragment
-    }
-  }
-}

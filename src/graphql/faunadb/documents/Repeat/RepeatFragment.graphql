@@ -1,5 +1,0 @@
-fragment RepeatFragment on Repeat {
-  _id
-  frequency
-  interval
-}

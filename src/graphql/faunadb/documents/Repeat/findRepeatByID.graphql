@@ -1,5 +1,0 @@
-query findRepeatByID($id: ID!) {
-  findRepeatByID(id: $id) {
-    ...RepeatFragment
-  }
-}

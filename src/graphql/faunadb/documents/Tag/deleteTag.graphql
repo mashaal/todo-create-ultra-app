@@ -1,5 +1,0 @@
-mutation deleteTag($id: ID!) {
-  deleteTag(id: $id) {
-    ...TagFragment
-  }
-}

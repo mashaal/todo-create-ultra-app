@@ -1,5 +1,0 @@
-mutation partialUpdateProject($id: ID!, $data: PartialUpdateProjectInput!) {
-  partialUpdateProject(id: $id, data: $data) {
-    ...ProjectFragment
-  }
-}

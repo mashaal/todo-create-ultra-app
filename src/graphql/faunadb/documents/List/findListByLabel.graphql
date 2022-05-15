@@ -1,5 +1,0 @@
-query findListByLabel($label: String!) {
-  findListByLabel(label: $label) {
-    ...ListFragment
-  }
-}

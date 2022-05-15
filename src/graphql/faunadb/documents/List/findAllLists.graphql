@@ -1,7 +1,0 @@
-query findAllLists {
-  findAllLists {
-    data {
-      ...ListFragment
-    }
-  }
-}

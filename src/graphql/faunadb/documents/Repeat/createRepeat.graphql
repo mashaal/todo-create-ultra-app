@@ -1,5 +1,0 @@
-mutation createRepeat($data: RepeatInput!) {
-  createRepeat(data: $data) {
-    ...RepeatFragment
-  }
-}

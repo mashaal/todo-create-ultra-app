@@ -1,5 +1,0 @@
-mutation deleteTodo($id: ID!) {
-  deleteTodo(id: $id) {
-    ...TodoFragment
-  }
-}

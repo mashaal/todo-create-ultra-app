@@ -1,5 +1,0 @@
-mutation partialUpdateTag($id: ID!, $data: PartialUpdateTagInput!) {
-  partialUpdateTag(id: $id, data: $data) {
-    ...TagFragment
-  }
-}

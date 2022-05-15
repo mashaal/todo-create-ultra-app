@@ -1,5 +1,0 @@
-mutation partialUpdateTodo($id: ID!, $data: PartialUpdateTodoInput!) {
-  partialUpdateTodo(id: $id, data: $data) {
-    ...TodoFragment
-  }
-}

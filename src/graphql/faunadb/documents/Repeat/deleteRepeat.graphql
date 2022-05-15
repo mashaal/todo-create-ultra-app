@@ -1,5 +1,0 @@
-mutation deleteRepeat($id: ID!) {
-  deleteRepeat(id: $id) {
-    ...RepeatFragment
-  }
-}

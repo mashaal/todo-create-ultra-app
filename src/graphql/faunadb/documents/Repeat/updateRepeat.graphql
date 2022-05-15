@@ -1,5 +1,0 @@
-mutation updateRepeat($id: ID!, $data: RepeatInput!) {
-  updateRepeat(id: $id, data: $data) {
-    ...RepeatFragment
-  }
-}

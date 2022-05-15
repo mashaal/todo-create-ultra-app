@@ -1,5 +1,0 @@
-mutation deleteProject($id: ID!) {
-  deleteProject(id: $id) {
-    ...ProjectFragment
-  }
-}

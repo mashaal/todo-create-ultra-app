@@ -1,6 +1,6 @@
 import { Context } from '../../server.ts';
 import { QueryResolvers } from '../../generated/server.ts';
-import { db } from '../../../../db/client.ts';
+import { db } from '../../../db/client.ts';
 
 export const findAllProjects: QueryResolvers<Context>['findAllProjects'] =
   async (
