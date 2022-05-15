@@ -77,6 +77,13 @@ input UpdateTodoInput {
   endDate: Date
 }
 
+input CreateHomeTodoInput {
+  label: String!
+  listLabel: String
+  projectLabel: String
+  tags: [String!]
+}
+
 type Todo {
   id: ID!
   label: String!
@@ -143,6 +150,7 @@ type Mutation {
   removeTag(id: ID!): Tag!
 
   createTodo(data: CreateTodoInput!): Todo!
+  createHomeTodo(data: CreateHomeTodoInput!): Todo!
   updateTodo(id: ID!, data: UpdateTodoInput!): Todo!
   removeTodo(id: ID!): Todo!
 }

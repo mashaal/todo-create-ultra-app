@@ -18,6 +18,13 @@ export type Scalars = {
   Date: any;
 };
 
+export type CreateHomeTodoInput = {
+  label: Scalars['String'];
+  listLabel?: InputMaybe<Scalars['String']>;
+  projectLabel?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+};
+
 export type CreateListInput = {
   label: Scalars['String'];
 };
@@ -61,6 +68,7 @@ export type List = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createHomeTodo: Todo;
   createList: List;
   createProject: Project;
   createTag: Tag;
@@ -73,6 +81,11 @@ export type Mutation = {
   updateProject: Project;
   updateTag: Tag;
   updateTodo: Todo;
+};
+
+
+export type MutationCreateHomeTodoArgs = {
+  data: CreateHomeTodoInput;
 };
 
 
@@ -282,6 +295,13 @@ export type UpdateTodoInput = {
   startDate?: InputMaybe<Scalars['Date']>;
   tags?: InputMaybe<Array<Scalars['String']>>;
 };
+
+export type CreateHomeTodoMutationVariables = Exact<{
+  data: CreateHomeTodoInput;
+}>;
+
+
+export type CreateHomeTodoMutation = { __typename?: 'Mutation', createHomeTodo: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } };
 
 export type CreateListMutationVariables = Exact<{
   data: CreateListInput;
@@ -519,6 +539,13 @@ export const TodoFragmentFragmentDoc = gql`
     ${ListFragmentFragmentDoc}
 ${ProjectFragmentFragmentDoc}
 ${TagFragmentFragmentDoc}`;
+export const CreateHomeTodoDocument = gql`
+    mutation createHomeTodo($data: CreateHomeTodoInput!) {
+  createHomeTodo(data: $data) {
+    ...TodoFragment
+  }
+}
+    ${TodoFragmentFragmentDoc}`;
 export const CreateListDocument = gql`
     mutation createList($data: CreateListInput!) {
   createList(data: $data) {
@@ -716,6 +743,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    createHomeTodo(variables: CreateHomeTodoMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateHomeTodoMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateHomeTodoMutation>(CreateHomeTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createHomeTodo', 'mutation');
+    },
     createList(variables: CreateListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateListMutation>(CreateListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createList', 'mutation');
     },

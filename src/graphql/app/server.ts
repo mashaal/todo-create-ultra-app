@@ -1,3 +1,4 @@
+import { useErrorHandler } from '@envelop/core';
 import { YogaInitialContext } from '@graphql-yoga/common';
 import { createServer } from '@graphql-yoga/common';
 import { dirname, fromFileUrl, resolve } from 'std/path/mod.ts';
@@ -12,9 +13,15 @@ const schemaFile = await Deno.readTextFile(schemaFilePath);
 
 export type Context = YogaInitialContext;
 
+const errorHandler = useErrorHandler<Context>((errors, _context) => {
+  console.error(errors);
+});
+
 export const server = createServer({
   schema: {
     typeDefs: gql(schemaFile),
     resolvers,
   },
+  logging: true,
+  plugins: [errorHandler],
 });

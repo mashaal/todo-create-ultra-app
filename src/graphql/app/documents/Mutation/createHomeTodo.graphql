@@ -1,0 +1,5 @@
+mutation createHomeTodo($data: CreateHomeTodoInput!) {
+  createHomeTodo(data: $data) {
+    ...TodoFragment
+  }
+}

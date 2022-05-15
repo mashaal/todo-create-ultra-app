@@ -7,18 +7,24 @@ export async function up(db: Kysely<Database>): Promise<void> {
       .createTable('list')
       .addColumn('id', 'serial', (col) => col.primaryKey())
       .addColumn('label', 'varchar', (col) => col.notNull())
+      .addColumn('createdAt', 'timestamp')
+      .addColumn('updatedAt', 'timestamp')
       .execute();
 
     await db.schema
       .createTable('project')
       .addColumn('id', 'serial', (col) => col.primaryKey())
       .addColumn('label', 'varchar', (col) => col.notNull())
+      .addColumn('createdAt', 'timestamp')
+      .addColumn('updatedAt', 'timestamp')
       .execute();
 
     await db.schema
       .createTable('tag')
       .addColumn('id', 'serial', (col) => col.primaryKey())
       .addColumn('label', 'varchar', (col) => col.notNull())
+      .addColumn('createdAt', 'timestamp')
+      .addColumn('updatedAt', 'timestamp')
       .execute();
 
     await db.schema
@@ -38,11 +44,11 @@ export async function up(db: Kysely<Database>): Promise<void> {
       )
       .addColumn('priority', 'varchar')
       .addColumn('description', 'text')
-      .addColumn('dueDate', 'date')
-      .addColumn('startDate', 'date')
-      .addColumn('endDate', 'date')
-      .addColumn('createdAt', 'date')
-      .addColumn('updatedAt', 'date')
+      .addColumn('dueDate', 'timestamp')
+      .addColumn('startDate', 'timestamp')
+      .addColumn('endDate', 'timestamp')
+      .addColumn('createdAt', 'timestamp')
+      .addColumn('updatedAt', 'timestamp')
       .execute();
 
     await db.schema

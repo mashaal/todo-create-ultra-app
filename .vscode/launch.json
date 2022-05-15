@@ -20,5 +20,44 @@
       "attachSimplePort": 9229,
       "envFile": "${workspaceFolder}/.env"
     },
+    {
+      "name": "Run Server (Ultra)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/server.ts",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "-A",
+        "--location=http://localhost:8000",
+        "--no-check",
+        "--unstable",
+        "--inspect-brk"
+      ],
+      "attachSimplePort": 9229,
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "mode": "dev"
+      }
+    },
+    {
+      "request": "launch",
+      "name": "Debug Workspace",
+      "type": "pwa-node",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/server.ts",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--unstable",
+        "--no-check",
+        "--config",
+        "./deno.json",
+        "--inspect",
+        "--allow-all"
+      ],
+      "attachSimplePort": 9229
+    }
   ]
 }

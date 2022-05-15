@@ -4,7 +4,6 @@ import { Link } from 'wouter';
 import { Loader } from '../atoms/Loader.tsx';
 import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
-import { TodoInput } from '../../graphql/faunadb/generated/client.ts';
 import { getSDK } from '../../graphql/app/client.ts';
 import { parseTodo } from '../../lib/todo.ts';
 
@@ -30,68 +29,8 @@ export function HomePage() {
   }
 
   async function handleSubmit(value: string) {
-    const { label, listLabel, projectLabel, tags } = parseTodo(value);
-
-    const data: TodoInput = {
-      label,
-    };
-
-    if (listLabel) {
-      const existingList = (await sdk.findListByLabel({
-        label: listLabel,
-      })).findListByLabel;
-
-      if (existingList) {
-        data.list = {
-          connect: existingList.id,
-        };
-      } else {
-        data.list = {
-          create: {
-            label: listLabel,
-          },
-        };
-      }
-    }
-
-    if (projectLabel) {
-      const existingProject = (await sdk.findProjectByLabel({
-        label: projectLabel,
-      })).findProjectByLabel;
-
-      if (existingProject) {
-        data.project = {
-          connect: existingProject.id,
-        };
-      } else {
-        data.project = {
-          create: {
-            label: projectLabel,
-          },
-        };
-      }
-    }
-
-    if (tags) {
-      data.tags = {};
-
-      await Promise.all(tags.map(async (tag) => {
-        const existingTag =
-          (await sdk.findTagByLabel({ label: tag })).findTagByLabel;
-
-        if (existingTag) {
-          data.tags = data.tags || {};
-          data.tags.connect = data.tags?.connect || [];
-          data.tags.connect.push(existingTag.id);
-        } else {
-          data.tags = data.tags || {};
-          data.tags.create = data.tags?.create || [];
-          data.tags.create.push({ label: tag });
-        }
-      }));
-    }
-
-    const result = await sdk.createTodo({ data });
+    const data = parseTodo(value);
+    const result = await sdk.createHomeTodo({ data });
     console.log('result', result);
   }
 

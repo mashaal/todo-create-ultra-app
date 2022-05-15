@@ -34,9 +34,15 @@ export type TodoTable = Timestamped<{
   endDate: ColumnType<Date, Date | undefined, never> | null;
 }>;
 
+export type TodoTagTable = {
+  todoId: Generated<number>;
+  tagId: Generated<number>;
+};
+
 export interface Database {
   list: ListTable;
   project: ProjectTable;
   tag: TagTable;
   todo: TodoTable;
+  todo_tag: TodoTagTable;
 }

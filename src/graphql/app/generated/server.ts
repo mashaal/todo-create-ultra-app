@@ -15,6 +15,13 @@ export type Scalars = {
   Date: any;
 };
 
+export type CreateHomeTodoInput = {
+  label: Scalars['String'];
+  listLabel?: InputMaybe<Scalars['String']>;
+  projectLabel?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+};
+
 export type CreateListInput = {
   label: Scalars['String'];
 };
@@ -58,6 +65,7 @@ export type List = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createHomeTodo: Todo;
   createList: List;
   createProject: Project;
   createTag: Tag;
@@ -70,6 +78,11 @@ export type Mutation = {
   updateProject: Project;
   updateTag: Tag;
   updateTodo: Todo;
+};
+
+
+export type MutationCreateHomeTodoArgs = {
+  data: CreateHomeTodoInput;
 };
 
 
@@ -350,6 +363,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateHomeTodoInput: CreateHomeTodoInput;
   CreateListInput: CreateListInput;
   CreateProjectInput: CreateProjectInput;
   CreateTagInput: CreateTagInput;
@@ -374,6 +388,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreateHomeTodoInput: CreateHomeTodoInput;
   CreateListInput: CreateListInput;
   CreateProjectInput: CreateProjectInput;
   CreateTagInput: CreateTagInput;
@@ -407,6 +422,7 @@ export type ListResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createHomeTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateHomeTodoArgs, 'data'>>;
   createList?: Resolver<ResolversTypes['List'], ParentType, ContextType, RequireFields<MutationCreateListArgs, 'data'>>;
   createProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'data'>>;
   createTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationCreateTagArgs, 'data'>>;
