@@ -11,13 +11,9 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
     _ctx,
     _info,
   ) => {
-    console.log('createHomeTodo', args.data);
-
     const transactionBuilder = db.transaction();
 
     return await transactionBuilder.execute(async (transaction) => {
-      console.log('createHomeTodo:transaction');
-
       let listId;
       if (args.data.listLabel) {
         listId = await transaction.selectFrom('list').where(
@@ -56,8 +52,6 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
         }
       }
 
-      console.log('TAGS', args.data.tags);
-
       let tagIds;
       if (args.data.tags) {
         let query = transaction.selectFrom('tag');
@@ -68,15 +62,11 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
 
         const existingTags = await query.select(['id', 'label']).execute();
 
-        console.log('existingTags', existingTags);
-
         const tagsToInsert = args.data.tags.filter((tag) => {
           return !existingTags.find((existingTag) => {
             return existingTag.label === tag;
           });
         });
-
-        console.log('tagsToInsert', tagsToInsert);
 
         let newTags: Selection<Database, 'tag', 'id'>[];
         if (tagsToInsert.length > 0) {
@@ -97,19 +87,12 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
           return entry.id;
         });
 
-        console.log('existingTagIds', existingTagIds);
-
         const newTagIds = newTags.map((entry) => {
           return entry.id;
         });
 
-        console.log('newTagIds', newTagIds);
-
         tagIds = [...existingTagIds, ...newTagIds];
       }
-
-      console.log('listId', listId);
-      console.log('projectId', projectId);
 
       const newTodo: InsertObject<Database, 'todo'> = {
         label: args.data.label,
@@ -125,8 +108,6 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
       if (projectId) {
         newTodo.projectId = projectId.id;
       }
-
-      console.log('newTodo', newTodo);
 
       const createdTodo = await transaction.insertInto('todo').values([
         newTodo,
@@ -150,8 +131,6 @@ export const createHomeTodo: MutationResolvers<Context>['createHomeTodo'] =
         priority: createdTodo.priority as Priority,
         tags: [],
       };
-
-      console.log('resultTodo', resultTodo);
 
       return resultTodo;
     });

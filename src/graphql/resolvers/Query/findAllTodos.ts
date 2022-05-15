@@ -9,15 +9,11 @@ export const findAllTodos: QueryResolvers<Context>['findAllTodos'] = async (
   _info,
 ) => {
   try {
-    console.log('findAllTodos');
-
     const allTodos = await db.selectFrom('todo')
       .selectAll()
       // .innerJoin('list', 'listId', 'list.id')
       // .innerJoin('project', 'projectId', 'project.id')
       .execute();
-
-    console.log('findAllTodos:allTodos', allTodos);
 
     const output: Array<Todo> = [];
     for (const todo of allTodos) {

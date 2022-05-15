@@ -31,7 +31,8 @@ export function HomePage() {
   async function handleSubmit(value: string) {
     const data = parseTodo(value);
     const result = await sdk.createHomeTodo({ data });
-    console.log('result', result);
+
+    // TODO: Update queries on this page.
   }
 
   return (

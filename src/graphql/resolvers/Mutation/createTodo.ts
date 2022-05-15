@@ -9,8 +9,6 @@ export const createTodo: MutationResolvers<Context>['createTodo'] = async (
   _info,
 ) => {
   try {
-    console.log('createTodo123', args);
-
     const newTodo = {
       completed: false,
       createdAt: new Date(),
