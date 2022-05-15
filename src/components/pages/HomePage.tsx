@@ -1,5 +1,5 @@
 import React from 'react';
-import * as TodoList from '../atoms/TodoList.tsx';
+import * as TodoList from '../cells/TodoList.tsx';
 import { Cell } from '../atoms/Cell.tsx';
 import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
 import { getSDK } from '../../graphql/client.ts';

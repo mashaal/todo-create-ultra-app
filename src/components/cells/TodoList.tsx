@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import { Loader } from './Loader.tsx';
-import { Spinner } from './Spinner.tsx';
+import { Loader } from '../atoms/Loader.tsx';
+import { Spinner } from '../atoms/Spinner.tsx';
 import { getSDK } from '../../graphql/client.ts';
 
 export const request = () => {
