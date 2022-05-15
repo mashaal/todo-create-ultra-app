@@ -2,15 +2,15 @@ import { Context } from '../../server.ts';
 import { QueryResolvers } from '../../generated/server.ts';
 import { db } from '../../../db/client.ts';
 
-export const findAllLists: QueryResolvers<Context>['findAllLists'] = async (
+export const findAllTags: QueryResolvers<Context>['findAllTags'] = async (
   _parent,
   _args,
   _ctx,
   _info,
 ) => {
-  const allLists = await db.selectFrom('list')
+  const allTags = await db.selectFrom('tag')
     .selectAll()
     .execute();
 
-  return allLists;
+  return allTags;
 };

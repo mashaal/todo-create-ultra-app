@@ -9,18 +9,9 @@ export const findAllProjects: QueryResolvers<Context>['findAllProjects'] =
     _ctx,
     _info,
   ) => {
-    try {
-      console.log('findAllProjects');
+    const allProjects = await db.selectFrom('project')
+      .selectAll()
+      .execute();
 
-      const allProjects = await db.selectFrom('project')
-        .selectAll()
-        .execute();
-
-      console.log('findAllProjects:allProjects', allProjects);
-
-      return [];
-    } catch (error: unknown) {
-      console.error(error);
-      throw error;
-    }
+    return allProjects;
   };
