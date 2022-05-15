@@ -1,13 +1,29 @@
-import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
-import gql from 'graphql-tag';
-import { ClientError } from 'graphql-request/dist/types';
-import useSWR, { SWRConfiguration as SWRConfigInterface, Key as SWRKeyInterface } from 'swr';
+import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+
+function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      ...requestInit,
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -497,25 +513,25 @@ export type FindTodosByTagsQueryVariables = Exact<{
 
 export type FindTodosByTagsQuery = { __typename?: 'Query', findTodosByTags: Array<{ __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null }> };
 
-export const ListFragmentFragmentDoc = gql`
+export const ListFragmentFragmentDoc = `
     fragment ListFragment on List {
   id
   label
 }
     `;
-export const ProjectFragmentFragmentDoc = gql`
+export const ProjectFragmentFragmentDoc = `
     fragment ProjectFragment on Project {
   id
   label
 }
     `;
-export const TagFragmentFragmentDoc = gql`
+export const TagFragmentFragmentDoc = `
     fragment TagFragment on Tag {
   id
   label
 }
     `;
-export const TodoFragmentFragmentDoc = gql`
+export const TodoFragmentFragmentDoc = `
     fragment TodoFragment on Todo {
   id
   label
@@ -540,346 +556,550 @@ export const TodoFragmentFragmentDoc = gql`
     ${ListFragmentFragmentDoc}
 ${ProjectFragmentFragmentDoc}
 ${TagFragmentFragmentDoc}`;
-export const CreateHomeTodoDocument = gql`
+export const CreateHomeTodoDocument = `
     mutation createHomeTodo($data: CreateHomeTodoInput!) {
   createHomeTodo(data: $data) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const CreateListDocument = gql`
+export const useCreateHomeTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<CreateHomeTodoMutation, TError, CreateHomeTodoMutationVariables, TContext>
+    ) =>
+    useMutation<CreateHomeTodoMutation, TError, CreateHomeTodoMutationVariables, TContext>(
+      ['createHomeTodo'],
+      (variables?: CreateHomeTodoMutationVariables) => fetcher<CreateHomeTodoMutation, CreateHomeTodoMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateHomeTodoDocument, variables)(),
+      options
+    );
+export const CreateListDocument = `
     mutation createList($data: CreateListInput!) {
   createList(data: $data) {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
-export const CreateProjectDocument = gql`
+export const useCreateListMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<CreateListMutation, TError, CreateListMutationVariables, TContext>
+    ) =>
+    useMutation<CreateListMutation, TError, CreateListMutationVariables, TContext>(
+      ['createList'],
+      (variables?: CreateListMutationVariables) => fetcher<CreateListMutation, CreateListMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateListDocument, variables)(),
+      options
+    );
+export const CreateProjectDocument = `
     mutation createProject($data: CreateProjectInput!) {
   createProject(data: $data) {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
-export const CreateTagDocument = gql`
+export const useCreateProjectMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>
+    ) =>
+    useMutation<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>(
+      ['createProject'],
+      (variables?: CreateProjectMutationVariables) => fetcher<CreateProjectMutation, CreateProjectMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateProjectDocument, variables)(),
+      options
+    );
+export const CreateTagDocument = `
     mutation createTag($data: CreateTagInput!) {
   createTag(data: $data) {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
-export const CreateTodoDocument = gql`
+export const useCreateTagMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<CreateTagMutation, TError, CreateTagMutationVariables, TContext>
+    ) =>
+    useMutation<CreateTagMutation, TError, CreateTagMutationVariables, TContext>(
+      ['createTag'],
+      (variables?: CreateTagMutationVariables) => fetcher<CreateTagMutation, CreateTagMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateTagDocument, variables)(),
+      options
+    );
+export const CreateTodoDocument = `
     mutation createTodo($data: CreateTodoInput!) {
   createTodo(data: $data) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const RemoveListDocument = gql`
+export const useCreateTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<CreateTodoMutation, TError, CreateTodoMutationVariables, TContext>
+    ) =>
+    useMutation<CreateTodoMutation, TError, CreateTodoMutationVariables, TContext>(
+      ['createTodo'],
+      (variables?: CreateTodoMutationVariables) => fetcher<CreateTodoMutation, CreateTodoMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, CreateTodoDocument, variables)(),
+      options
+    );
+export const RemoveListDocument = `
     mutation removeList($id: BigInt!) {
   removeList(id: $id) {
     id
   }
 }
     `;
-export const RemoveProjectDocument = gql`
+export const useRemoveListMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<RemoveListMutation, TError, RemoveListMutationVariables, TContext>
+    ) =>
+    useMutation<RemoveListMutation, TError, RemoveListMutationVariables, TContext>(
+      ['removeList'],
+      (variables?: RemoveListMutationVariables) => fetcher<RemoveListMutation, RemoveListMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, RemoveListDocument, variables)(),
+      options
+    );
+export const RemoveProjectDocument = `
     mutation removeProject($id: BigInt!) {
   removeProject(id: $id) {
     id
   }
 }
     `;
-export const RemoveTagDocument = gql`
+export const useRemoveProjectMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<RemoveProjectMutation, TError, RemoveProjectMutationVariables, TContext>
+    ) =>
+    useMutation<RemoveProjectMutation, TError, RemoveProjectMutationVariables, TContext>(
+      ['removeProject'],
+      (variables?: RemoveProjectMutationVariables) => fetcher<RemoveProjectMutation, RemoveProjectMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, RemoveProjectDocument, variables)(),
+      options
+    );
+export const RemoveTagDocument = `
     mutation removeTag($id: BigInt!) {
   removeTag(id: $id) {
     id
   }
 }
     `;
-export const RemoveTodoDocument = gql`
+export const useRemoveTagMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<RemoveTagMutation, TError, RemoveTagMutationVariables, TContext>
+    ) =>
+    useMutation<RemoveTagMutation, TError, RemoveTagMutationVariables, TContext>(
+      ['removeTag'],
+      (variables?: RemoveTagMutationVariables) => fetcher<RemoveTagMutation, RemoveTagMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, RemoveTagDocument, variables)(),
+      options
+    );
+export const RemoveTodoDocument = `
     mutation removeTodo($id: BigInt!) {
   removeTodo(id: $id) {
     id
   }
 }
     `;
-export const UpdateListDocument = gql`
+export const useRemoveTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<RemoveTodoMutation, TError, RemoveTodoMutationVariables, TContext>
+    ) =>
+    useMutation<RemoveTodoMutation, TError, RemoveTodoMutationVariables, TContext>(
+      ['removeTodo'],
+      (variables?: RemoveTodoMutationVariables) => fetcher<RemoveTodoMutation, RemoveTodoMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, RemoveTodoDocument, variables)(),
+      options
+    );
+export const UpdateListDocument = `
     mutation updateList($id: BigInt!, $data: UpdateListInput!) {
   updateList(id: $id, data: $data) {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
-export const UpdateProjectDocument = gql`
+export const useUpdateListMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<UpdateListMutation, TError, UpdateListMutationVariables, TContext>
+    ) =>
+    useMutation<UpdateListMutation, TError, UpdateListMutationVariables, TContext>(
+      ['updateList'],
+      (variables?: UpdateListMutationVariables) => fetcher<UpdateListMutation, UpdateListMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateListDocument, variables)(),
+      options
+    );
+export const UpdateProjectDocument = `
     mutation updateProject($id: BigInt!, $data: UpdateProjectInput!) {
   updateProject(id: $id, data: $data) {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
-export const UpdateTagDocument = gql`
+export const useUpdateProjectMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<UpdateProjectMutation, TError, UpdateProjectMutationVariables, TContext>
+    ) =>
+    useMutation<UpdateProjectMutation, TError, UpdateProjectMutationVariables, TContext>(
+      ['updateProject'],
+      (variables?: UpdateProjectMutationVariables) => fetcher<UpdateProjectMutation, UpdateProjectMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateProjectDocument, variables)(),
+      options
+    );
+export const UpdateTagDocument = `
     mutation updateTag($id: BigInt!, $data: UpdateTagInput!) {
   updateTag(id: $id, data: $data) {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
-export const UpdateTodoDocument = gql`
+export const useUpdateTagMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<UpdateTagMutation, TError, UpdateTagMutationVariables, TContext>
+    ) =>
+    useMutation<UpdateTagMutation, TError, UpdateTagMutationVariables, TContext>(
+      ['updateTag'],
+      (variables?: UpdateTagMutationVariables) => fetcher<UpdateTagMutation, UpdateTagMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateTagDocument, variables)(),
+      options
+    );
+export const UpdateTodoDocument = `
     mutation updateTodo($id: BigInt!, $data: UpdateTodoInput!) {
   updateTodo(id: $id, data: $data) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindAllListsDocument = gql`
+export const useUpdateTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      options?: UseMutationOptions<UpdateTodoMutation, TError, UpdateTodoMutationVariables, TContext>
+    ) =>
+    useMutation<UpdateTodoMutation, TError, UpdateTodoMutationVariables, TContext>(
+      ['updateTodo'],
+      (variables?: UpdateTodoMutationVariables) => fetcher<UpdateTodoMutation, UpdateTodoMutationVariables>(dataSource.endpoint, dataSource.fetchParams || {}, UpdateTodoDocument, variables)(),
+      options
+    );
+export const FindAllListsDocument = `
     query findAllLists {
   findAllLists {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
-export const FindAllProjectsDocument = gql`
+export const useFindAllListsQuery = <
+      TData = FindAllListsQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables?: FindAllListsQueryVariables,
+      options?: UseQueryOptions<FindAllListsQuery, TError, TData>
+    ) =>
+    useQuery<FindAllListsQuery, TError, TData>(
+      variables === undefined ? ['findAllLists'] : ['findAllLists', variables],
+      fetcher<FindAllListsQuery, FindAllListsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindAllListsDocument, variables),
+      options
+    );
+export const FindAllProjectsDocument = `
     query findAllProjects {
   findAllProjects {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
-export const FindAllTagsDocument = gql`
+export const useFindAllProjectsQuery = <
+      TData = FindAllProjectsQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables?: FindAllProjectsQueryVariables,
+      options?: UseQueryOptions<FindAllProjectsQuery, TError, TData>
+    ) =>
+    useQuery<FindAllProjectsQuery, TError, TData>(
+      variables === undefined ? ['findAllProjects'] : ['findAllProjects', variables],
+      fetcher<FindAllProjectsQuery, FindAllProjectsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindAllProjectsDocument, variables),
+      options
+    );
+export const FindAllTagsDocument = `
     query findAllTags {
   findAllTags {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
-export const FindAllTodosDocument = gql`
+export const useFindAllTagsQuery = <
+      TData = FindAllTagsQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables?: FindAllTagsQueryVariables,
+      options?: UseQueryOptions<FindAllTagsQuery, TError, TData>
+    ) =>
+    useQuery<FindAllTagsQuery, TError, TData>(
+      variables === undefined ? ['findAllTags'] : ['findAllTags', variables],
+      fetcher<FindAllTagsQuery, FindAllTagsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindAllTagsDocument, variables),
+      options
+    );
+export const FindAllTodosDocument = `
     query findAllTodos {
   findAllTodos {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindListByIdDocument = gql`
+export const useFindAllTodosQuery = <
+      TData = FindAllTodosQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables?: FindAllTodosQueryVariables,
+      options?: UseQueryOptions<FindAllTodosQuery, TError, TData>
+    ) =>
+    useQuery<FindAllTodosQuery, TError, TData>(
+      variables === undefined ? ['findAllTodos'] : ['findAllTodos', variables],
+      fetcher<FindAllTodosQuery, FindAllTodosQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindAllTodosDocument, variables),
+      options
+    );
+export const FindListByIdDocument = `
     query findListById($id: BigInt!) {
   findListById(id: $id) {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
-export const FindListByLabelDocument = gql`
+export const useFindListByIdQuery = <
+      TData = FindListByIdQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindListByIdQueryVariables,
+      options?: UseQueryOptions<FindListByIdQuery, TError, TData>
+    ) =>
+    useQuery<FindListByIdQuery, TError, TData>(
+      ['findListById', variables],
+      fetcher<FindListByIdQuery, FindListByIdQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindListByIdDocument, variables),
+      options
+    );
+export const FindListByLabelDocument = `
     query findListByLabel($label: String!) {
   findListByLabel(label: $label) {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
-export const FindProjectByIdDocument = gql`
+export const useFindListByLabelQuery = <
+      TData = FindListByLabelQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindListByLabelQueryVariables,
+      options?: UseQueryOptions<FindListByLabelQuery, TError, TData>
+    ) =>
+    useQuery<FindListByLabelQuery, TError, TData>(
+      ['findListByLabel', variables],
+      fetcher<FindListByLabelQuery, FindListByLabelQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindListByLabelDocument, variables),
+      options
+    );
+export const FindProjectByIdDocument = `
     query findProjectById($id: BigInt!) {
   findProjectById(id: $id) {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
-export const FindProjectByLabelDocument = gql`
+export const useFindProjectByIdQuery = <
+      TData = FindProjectByIdQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindProjectByIdQueryVariables,
+      options?: UseQueryOptions<FindProjectByIdQuery, TError, TData>
+    ) =>
+    useQuery<FindProjectByIdQuery, TError, TData>(
+      ['findProjectById', variables],
+      fetcher<FindProjectByIdQuery, FindProjectByIdQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindProjectByIdDocument, variables),
+      options
+    );
+export const FindProjectByLabelDocument = `
     query findProjectByLabel($label: String!) {
   findProjectByLabel(label: $label) {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
-export const FindTagByIdDocument = gql`
+export const useFindProjectByLabelQuery = <
+      TData = FindProjectByLabelQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindProjectByLabelQueryVariables,
+      options?: UseQueryOptions<FindProjectByLabelQuery, TError, TData>
+    ) =>
+    useQuery<FindProjectByLabelQuery, TError, TData>(
+      ['findProjectByLabel', variables],
+      fetcher<FindProjectByLabelQuery, FindProjectByLabelQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindProjectByLabelDocument, variables),
+      options
+    );
+export const FindTagByIdDocument = `
     query findTagById($id: BigInt!) {
   findTagById(id: $id) {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
-export const FindTagByLabelDocument = gql`
+export const useFindTagByIdQuery = <
+      TData = FindTagByIdQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTagByIdQueryVariables,
+      options?: UseQueryOptions<FindTagByIdQuery, TError, TData>
+    ) =>
+    useQuery<FindTagByIdQuery, TError, TData>(
+      ['findTagById', variables],
+      fetcher<FindTagByIdQuery, FindTagByIdQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTagByIdDocument, variables),
+      options
+    );
+export const FindTagByLabelDocument = `
     query findTagByLabel($label: String!) {
   findTagByLabel(label: $label) {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
-export const FindTodoByIdDocument = gql`
+export const useFindTagByLabelQuery = <
+      TData = FindTagByLabelQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTagByLabelQueryVariables,
+      options?: UseQueryOptions<FindTagByLabelQuery, TError, TData>
+    ) =>
+    useQuery<FindTagByLabelQuery, TError, TData>(
+      ['findTagByLabel', variables],
+      fetcher<FindTagByLabelQuery, FindTagByLabelQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTagByLabelDocument, variables),
+      options
+    );
+export const FindTodoByIdDocument = `
     query findTodoById($id: BigInt!) {
   findTodoById(id: $id) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindTodoByLabelDocument = gql`
+export const useFindTodoByIdQuery = <
+      TData = FindTodoByIdQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTodoByIdQueryVariables,
+      options?: UseQueryOptions<FindTodoByIdQuery, TError, TData>
+    ) =>
+    useQuery<FindTodoByIdQuery, TError, TData>(
+      ['findTodoById', variables],
+      fetcher<FindTodoByIdQuery, FindTodoByIdQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTodoByIdDocument, variables),
+      options
+    );
+export const FindTodoByLabelDocument = `
     query findTodoByLabel($label: String!) {
   findTodoByLabel(label: $label) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindTodosByListDocument = gql`
+export const useFindTodoByLabelQuery = <
+      TData = FindTodoByLabelQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTodoByLabelQueryVariables,
+      options?: UseQueryOptions<FindTodoByLabelQuery, TError, TData>
+    ) =>
+    useQuery<FindTodoByLabelQuery, TError, TData>(
+      ['findTodoByLabel', variables],
+      fetcher<FindTodoByLabelQuery, FindTodoByLabelQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTodoByLabelDocument, variables),
+      options
+    );
+export const FindTodosByListDocument = `
     query findTodosByList($listLabel: String!) {
   findTodosByList(listLabel: $listLabel) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindTodosByProjectDocument = gql`
+export const useFindTodosByListQuery = <
+      TData = FindTodosByListQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTodosByListQueryVariables,
+      options?: UseQueryOptions<FindTodosByListQuery, TError, TData>
+    ) =>
+    useQuery<FindTodosByListQuery, TError, TData>(
+      ['findTodosByList', variables],
+      fetcher<FindTodosByListQuery, FindTodosByListQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTodosByListDocument, variables),
+      options
+    );
+export const FindTodosByProjectDocument = `
     query findTodosByProject($projectLabel: String!) {
   findTodosByProject(projectLabel: $projectLabel) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-export const FindTodosByTagsDocument = gql`
+export const useFindTodosByProjectQuery = <
+      TData = FindTodosByProjectQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTodosByProjectQueryVariables,
+      options?: UseQueryOptions<FindTodosByProjectQuery, TError, TData>
+    ) =>
+    useQuery<FindTodosByProjectQuery, TError, TData>(
+      ['findTodosByProject', variables],
+      fetcher<FindTodosByProjectQuery, FindTodosByProjectQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTodosByProjectDocument, variables),
+      options
+    );
+export const FindTodosByTagsDocument = `
     query findTodosByTags($tagLabels: [String!]!) {
   findTodosByTags(tagLabels: $tagLabels) {
     ...TodoFragment
   }
 }
     ${TodoFragmentFragmentDoc}`;
-
-export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
-
-
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
-
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-    createHomeTodo(variables: CreateHomeTodoMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateHomeTodoMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateHomeTodoMutation>(CreateHomeTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createHomeTodo', 'mutation');
-    },
-    createList(variables: CreateListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateListMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateListMutation>(CreateListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createList', 'mutation');
-    },
-    createProject(variables: CreateProjectMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateProjectMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateProjectMutation>(CreateProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createProject', 'mutation');
-    },
-    createTag(variables: CreateTagMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateTagMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateTagMutation>(CreateTagDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createTag', 'mutation');
-    },
-    createTodo(variables: CreateTodoMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateTodoMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateTodoMutation>(CreateTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createTodo', 'mutation');
-    },
-    removeList(variables: RemoveListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveListMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<RemoveListMutation>(RemoveListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeList', 'mutation');
-    },
-    removeProject(variables: RemoveProjectMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveProjectMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<RemoveProjectMutation>(RemoveProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeProject', 'mutation');
-    },
-    removeTag(variables: RemoveTagMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveTagMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<RemoveTagMutation>(RemoveTagDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeTag', 'mutation');
-    },
-    removeTodo(variables: RemoveTodoMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveTodoMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<RemoveTodoMutation>(RemoveTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeTodo', 'mutation');
-    },
-    updateList(variables: UpdateListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateListMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateListMutation>(UpdateListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateList', 'mutation');
-    },
-    updateProject(variables: UpdateProjectMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProjectMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateProjectMutation>(UpdateProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProject', 'mutation');
-    },
-    updateTag(variables: UpdateTagMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateTagMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateTagMutation>(UpdateTagDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateTag', 'mutation');
-    },
-    updateTodo(variables: UpdateTodoMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateTodoMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateTodoMutation>(UpdateTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateTodo', 'mutation');
-    },
-    findAllLists(variables?: FindAllListsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindAllListsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindAllListsQuery>(FindAllListsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllLists', 'query');
-    },
-    findAllProjects(variables?: FindAllProjectsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindAllProjectsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindAllProjectsQuery>(FindAllProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllProjects', 'query');
-    },
-    findAllTags(variables?: FindAllTagsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindAllTagsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindAllTagsQuery>(FindAllTagsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllTags', 'query');
-    },
-    findAllTodos(variables?: FindAllTodosQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindAllTodosQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindAllTodosQuery>(FindAllTodosDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllTodos', 'query');
-    },
-    findListById(variables: FindListByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindListByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindListByIdQuery>(FindListByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findListById', 'query');
-    },
-    findListByLabel(variables: FindListByLabelQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindListByLabelQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindListByLabelQuery>(FindListByLabelDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findListByLabel', 'query');
-    },
-    findProjectById(variables: FindProjectByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindProjectByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindProjectByIdQuery>(FindProjectByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findProjectById', 'query');
-    },
-    findProjectByLabel(variables: FindProjectByLabelQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindProjectByLabelQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindProjectByLabelQuery>(FindProjectByLabelDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findProjectByLabel', 'query');
-    },
-    findTagById(variables: FindTagByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTagByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTagByIdQuery>(FindTagByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTagById', 'query');
-    },
-    findTagByLabel(variables: FindTagByLabelQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTagByLabelQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTagByLabelQuery>(FindTagByLabelDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTagByLabel', 'query');
-    },
-    findTodoById(variables: FindTodoByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTodoByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTodoByIdQuery>(FindTodoByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTodoById', 'query');
-    },
-    findTodoByLabel(variables: FindTodoByLabelQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTodoByLabelQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTodoByLabelQuery>(FindTodoByLabelDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTodoByLabel', 'query');
-    },
-    findTodosByList(variables: FindTodosByListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTodosByListQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTodosByListQuery>(FindTodosByListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTodosByList', 'query');
-    },
-    findTodosByProject(variables: FindTodosByProjectQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTodosByProjectQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTodosByProjectQuery>(FindTodosByProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTodosByProject', 'query');
-    },
-    findTodosByTags(variables: FindTodosByTagsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindTodosByTagsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FindTodosByTagsQuery>(FindTodosByTagsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findTodosByTags', 'query');
-    }
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;
-export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  const sdk = getSdk(client, withWrapper);
-  return {
-    ...sdk,
-    useFindAllLists(key: SWRKeyInterface, variables?: FindAllListsQueryVariables, config?: SWRConfigInterface<FindAllListsQuery, ClientError>) {
-      return useSWR<FindAllListsQuery, ClientError>(key, () => sdk.findAllLists(variables), config);
-    },
-    useFindAllProjects(key: SWRKeyInterface, variables?: FindAllProjectsQueryVariables, config?: SWRConfigInterface<FindAllProjectsQuery, ClientError>) {
-      return useSWR<FindAllProjectsQuery, ClientError>(key, () => sdk.findAllProjects(variables), config);
-    },
-    useFindAllTags(key: SWRKeyInterface, variables?: FindAllTagsQueryVariables, config?: SWRConfigInterface<FindAllTagsQuery, ClientError>) {
-      return useSWR<FindAllTagsQuery, ClientError>(key, () => sdk.findAllTags(variables), config);
-    },
-    useFindAllTodos(key: SWRKeyInterface, variables?: FindAllTodosQueryVariables, config?: SWRConfigInterface<FindAllTodosQuery, ClientError>) {
-      return useSWR<FindAllTodosQuery, ClientError>(key, () => sdk.findAllTodos(variables), config);
-    },
-    useFindListById(key: SWRKeyInterface, variables: FindListByIdQueryVariables, config?: SWRConfigInterface<FindListByIdQuery, ClientError>) {
-      return useSWR<FindListByIdQuery, ClientError>(key, () => sdk.findListById(variables), config);
-    },
-    useFindListByLabel(key: SWRKeyInterface, variables: FindListByLabelQueryVariables, config?: SWRConfigInterface<FindListByLabelQuery, ClientError>) {
-      return useSWR<FindListByLabelQuery, ClientError>(key, () => sdk.findListByLabel(variables), config);
-    },
-    useFindProjectById(key: SWRKeyInterface, variables: FindProjectByIdQueryVariables, config?: SWRConfigInterface<FindProjectByIdQuery, ClientError>) {
-      return useSWR<FindProjectByIdQuery, ClientError>(key, () => sdk.findProjectById(variables), config);
-    },
-    useFindProjectByLabel(key: SWRKeyInterface, variables: FindProjectByLabelQueryVariables, config?: SWRConfigInterface<FindProjectByLabelQuery, ClientError>) {
-      return useSWR<FindProjectByLabelQuery, ClientError>(key, () => sdk.findProjectByLabel(variables), config);
-    },
-    useFindTagById(key: SWRKeyInterface, variables: FindTagByIdQueryVariables, config?: SWRConfigInterface<FindTagByIdQuery, ClientError>) {
-      return useSWR<FindTagByIdQuery, ClientError>(key, () => sdk.findTagById(variables), config);
-    },
-    useFindTagByLabel(key: SWRKeyInterface, variables: FindTagByLabelQueryVariables, config?: SWRConfigInterface<FindTagByLabelQuery, ClientError>) {
-      return useSWR<FindTagByLabelQuery, ClientError>(key, () => sdk.findTagByLabel(variables), config);
-    },
-    useFindTodoById(key: SWRKeyInterface, variables: FindTodoByIdQueryVariables, config?: SWRConfigInterface<FindTodoByIdQuery, ClientError>) {
-      return useSWR<FindTodoByIdQuery, ClientError>(key, () => sdk.findTodoById(variables), config);
-    },
-    useFindTodoByLabel(key: SWRKeyInterface, variables: FindTodoByLabelQueryVariables, config?: SWRConfigInterface<FindTodoByLabelQuery, ClientError>) {
-      return useSWR<FindTodoByLabelQuery, ClientError>(key, () => sdk.findTodoByLabel(variables), config);
-    },
-    useFindTodosByList(key: SWRKeyInterface, variables: FindTodosByListQueryVariables, config?: SWRConfigInterface<FindTodosByListQuery, ClientError>) {
-      return useSWR<FindTodosByListQuery, ClientError>(key, () => sdk.findTodosByList(variables), config);
-    },
-    useFindTodosByProject(key: SWRKeyInterface, variables: FindTodosByProjectQueryVariables, config?: SWRConfigInterface<FindTodosByProjectQuery, ClientError>) {
-      return useSWR<FindTodosByProjectQuery, ClientError>(key, () => sdk.findTodosByProject(variables), config);
-    },
-    useFindTodosByTags(key: SWRKeyInterface, variables: FindTodosByTagsQueryVariables, config?: SWRConfigInterface<FindTodosByTagsQuery, ClientError>) {
-      return useSWR<FindTodosByTagsQuery, ClientError>(key, () => sdk.findTodosByTags(variables), config);
-    }
-  };
-}
-export type SdkWithHooks = ReturnType<typeof getSdkWithHooks>;
+export const useFindTodosByTagsQuery = <
+      TData = FindTodosByTagsQuery,
+      TError = unknown
+    >(
+      dataSource: { endpoint: string, fetchParams?: RequestInit },
+      variables: FindTodosByTagsQueryVariables,
+      options?: UseQueryOptions<FindTodosByTagsQuery, TError, TData>
+    ) =>
+    useQuery<FindTodosByTagsQuery, TError, TData>(
+      ['findTodosByTags', variables],
+      fetcher<FindTodosByTagsQuery, FindTodosByTagsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FindTodosByTagsDocument, variables),
+      options
+    );

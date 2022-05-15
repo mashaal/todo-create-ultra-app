@@ -1,16 +1,27 @@
 import React from 'react';
+import { useQueryClient } from 'react-query';
+
 import { NewTodoInput } from '../atoms/NewTodoInput.tsx';
 import { TodoList } from '../cells/TodoList.tsx';
-import { getSDK } from '../../graphql/client.ts';
+import { endpoint } from '../../graphql/client.ts';
 import { parseTodo } from '../../lib/todo.ts';
+import { useCreateHomeTodoMutation } from '../../graphql/generated/client.ts';
 
 export function HomePage() {
-  async function handleSubmit(value: string) {
-    const sdk = getSDK();
-    const data = parseTodo(value);
-    const result = await sdk.createHomeTodo({ data });
+  const queryClient = useQueryClient();
+  const createHomeTodo = useCreateHomeTodoMutation({ endpoint }, {
+    onSuccess: () => {
+      queryClient.refetchQueries('findAllTodos');
+      queryClient.invalidateQueries('findAllLists');
+      queryClient.invalidateQueries('findAllProjects');
+      queryClient.invalidateQueries('findAllTags');
+    },
+  });
 
-    // TODO: Update queries on this page.
+  async function handleSubmit(value: string) {
+    const data = parseTodo(value);
+
+    await createHomeTodo.mutateAsync({ data });
   }
 
   return (

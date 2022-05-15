@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'wouter';
 
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
-import { useFindAllTodosQuery } from '../../graphql/generated/client.ts';
+import { useFindListByIdQuery } from '../../graphql/generated/client.ts';
 import { endpoint } from '../../graphql/client.ts';
 
-export function TodoList() {
-  const findAllTodos = useFindAllTodosQuery({ endpoint });
+export type ListShowProps = {
+  id: string;
+};
 
-  if (findAllTodos.isLoading) {
+export function ListShow({ id }: ListShowProps) {
+  const findListById = useFindListByIdQuery({ endpoint }, { id });
+
+  if (findListById.isLoading) {
     return (
       <Loader>
         <Spinner />
@@ -17,15 +20,21 @@ export function TodoList() {
     );
   }
 
-  if (findAllTodos.error) {
+  if (findListById.error) {
     return <div>There was an error rendering this component.</div>;
+  }
+
+  const list = findListById.data?.findListById;
+
+  if (!list) {
+    <>The list you tried to view wasn't found.</>;
   }
 
   return (
     <>
       <style>
         {`
-          ul.TodoList {
+          ul.ListShow {
             margin-top: var(--size-3);
             margin-bottom: 0;
             padding-left: 0;
@@ -35,14 +44,8 @@ export function TodoList() {
           }
         `}
       </style>
-      <ul className='TodoList'>
-        {findAllTodos.data?.findAllTodos.map((entry) => {
-          return (
-            <li>
-              <Link to='/todos'>{entry?.label}</Link>
-            </li>
-          );
-        })}
+      <ul className='ListShow'>
+        {JSON.stringify(list)}
       </ul>
     </>
   );

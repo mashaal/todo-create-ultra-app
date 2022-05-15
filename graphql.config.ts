@@ -16,10 +16,9 @@ const config: IGraphQLConfig = {
           plugins: [
             'typescript',
             'typescript-operations',
-            'typescript-graphql-request',
-            'plugin-typescript-swr',
+            'typescript-react-query'
           ]
-        }
+        },
       }
     }
   }

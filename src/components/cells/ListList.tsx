@@ -3,13 +3,13 @@ import { Link } from 'wouter';
 
 import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
-import { useFindAllTodosQuery } from '../../graphql/generated/client.ts';
+import { useFindAllListsQuery } from '../../graphql/generated/client.ts';
 import { endpoint } from '../../graphql/client.ts';
 
-export function TodoList() {
-  const findAllTodos = useFindAllTodosQuery({ endpoint });
+export function ListList() {
+  const findAllLists = useFindAllListsQuery({ endpoint });
 
-  if (findAllTodos.isLoading) {
+  if (findAllLists.isLoading) {
     return (
       <Loader>
         <Spinner />
@@ -17,7 +17,7 @@ export function TodoList() {
     );
   }
 
-  if (findAllTodos.error) {
+  if (findAllLists.error) {
     return <div>There was an error rendering this component.</div>;
   }
 
@@ -25,7 +25,7 @@ export function TodoList() {
     <>
       <style>
         {`
-          ul.TodoList {
+          ul.ListList {
             margin-top: var(--size-3);
             margin-bottom: 0;
             padding-left: 0;
@@ -35,8 +35,8 @@ export function TodoList() {
           }
         `}
       </style>
-      <ul className='TodoList'>
-        {findAllTodos.data?.findAllTodos.map((entry) => {
+      <ul className='ListList'>
+        {findAllLists.data?.findAllLists.map((entry) => {
           return (
             <li>
               <Link to='/todos'>{entry?.label}</Link>

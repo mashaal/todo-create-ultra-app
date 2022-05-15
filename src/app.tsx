@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import ultraCache from 'ultra/cache';
 import { Helmet } from 'react-helmet';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'wouter';
 import { SWRConfig } from 'swr';
 // Can't put this in the importMap because SWC will cause an error on deploy.
@@ -21,50 +22,54 @@ const options = (cache: Cache) => ({
   suspense: true,
 });
 
+const queryClient = new QueryClient();
+
 const Ultra = ({ cache }: { cache: Cache }) => {
   return (
-    <SWRConfig value={options(cache)}>
-      <Helmet>
-        <title>Ultra</title>
-        <link rel='stylesheet' href='/style.css' />
-      </Helmet>
-      <LayoutTemplate>
-        <Suspense
-          fallback={
-            <Loader>
-              <Spinner />
-            </Loader>
-          }
-        >
-          <Switch>
-            <Route path='/'>
-              <HomePage />
-            </Route>
-            <Route path='/lists'>
-              <ListListPage />
-            </Route>
-            <Route path='/lists/:id'>
-              {({ id }) => {
-                if (!id) {
-                  return <NotFoundPage />;
-                }
+    <QueryClientProvider client={queryClient}>
+      <SWRConfig value={options(cache)}>
+        <Helmet>
+          <title>Ultra</title>
+          <link rel='stylesheet' href='/style.css' />
+        </Helmet>
+        <LayoutTemplate>
+          <Suspense
+            fallback={
+              <Loader>
+                <Spinner />
+              </Loader>
+            }
+          >
+            <Switch>
+              <Route path='/'>
+                <HomePage />
+              </Route>
+              <Route path='/lists'>
+                <ListListPage />
+              </Route>
+              <Route path='/lists/:id'>
+                {({ id }) => {
+                  if (!id) {
+                    return <NotFoundPage />;
+                  }
 
-                return <ListShowPage id={id} />;
-              }}
-            </Route>
-            <Route path='/projects'>
-              <ProjectListPage />
-            </Route>
-            <Route path='/tags'>
-              <TagListPage />
-            </Route>
-            <Route>
-              <NotFoundPage />
-            </Route>
-          </Switch>
-        </Suspense>
-      </LayoutTemplate>
-    </SWRConfig>
+                  return <ListShowPage id={id} />;
+                }}
+              </Route>
+              <Route path='/projects'>
+                <ProjectListPage />
+              </Route>
+              <Route path='/tags'>
+                <TagListPage />
+              </Route>
+              <Route>
+                <NotFoundPage />
+              </Route>
+            </Switch>
+          </Suspense>
+        </LayoutTemplate>
+      </SWRConfig>
+    </QueryClientProvider>
   );
 };
 
