@@ -11,38 +11,68 @@ export const findAllTodos: QueryResolvers<Context>['findAllTodos'] = async (
   try {
     const allTodos = await db.selectFrom('todo')
       .selectAll()
-      // .innerJoin('list', 'listId', 'list.id')
-      // .innerJoin('project', 'projectId', 'project.id')
       .execute();
 
-    const output: Array<Todo> = [];
-    for (const todo of allTodos) {
-      const item: Todo = {
-        completed: Boolean(todo.completed),
-        createdAt: todo.createdAt,
-        description: todo.description,
-        dueDate: todo.dueDate,
-        endDate: todo.endDate,
-        id: String(todo.id),
-        label: todo.label,
-        startDate: todo.startDate,
-        updatedAt: todo.updatedAt,
-        priority: todo.priority as Priority,
-      };
+    const allTodosWithRelations = await Promise.all(
+      allTodos.map(async (entry) => {
+        const item: Todo = {
+          completed: Boolean(entry.completed),
+          createdAt: entry.createdAt,
+          description: entry.description,
+          dueDate: entry.dueDate,
+          endDate: entry.endDate,
+          id: String(entry.id),
+          label: entry.label,
+          startDate: entry.startDate,
+          updatedAt: entry.updatedAt,
+          priority: entry.priority as Priority,
+        };
 
-      // if (todo.listId) {
-      //   todo
-      //     .item.list = {
-      //       id: String(todo.listId),
-      //       label: todo.listLabel,
-      //       createdAt: todo.listCreatedAt,
-      //     };
-      // }
+        await Promise.all([
+          (async () => {
+            if (entry.listId) {
+              const list = await db.selectFrom('list').where(
+                'id',
+                '=',
+                entry.listId,
+              )
+                .selectAll().executeTakeFirstOrThrow();
 
-      output.push(item);
-    }
+              item.list = list;
+            }
+          })(),
+          (async () => {
+            if (entry.projectId) {
+              const project = await db.selectFrom('project').where(
+                'id',
+                '=',
+                entry.projectId,
+              )
+                .selectAll().executeTakeFirstOrThrow();
 
-    return output;
+              item.project = project;
+            }
+          })(),
+          (async () => {
+            if (entry.tags) {
+              let tagsQuery = db.selectFrom('tag');
+
+              for (const tag of entry.tags) {
+                tagsQuery = tagsQuery.orWhere('id', '=', tag.__select__);
+              }
+
+              const tags = await tagsQuery.selectAll().execute();
+
+              item.tags = tags;
+            }
+          })(),
+        ]);
+
+        return item;
+      }),
+    );
+
+    return allTodosWithRelations;
   } catch (error: unknown) {
     console.error(error);
     throw error;
