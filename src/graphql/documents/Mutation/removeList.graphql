@@ -1,4 +1,4 @@
-mutation removeList($id: ID!) {
+mutation removeList($id: BigInt!) {
   removeList(id: $id) {
     id
   }

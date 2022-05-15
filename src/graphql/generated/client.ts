@@ -15,6 +15,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigInt: any;
   Date: any;
 };
 
@@ -60,7 +61,7 @@ export enum Frequency {
 export type List = {
   __typename?: 'List';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -110,46 +111,46 @@ export type MutationCreateTodoArgs = {
 
 
 export type MutationRemoveListArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveProjectArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveTagArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveTodoArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateListArgs = {
   data: UpdateListInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateProjectArgs = {
   data: UpdateProjectInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateTagArgs = {
   data: UpdateTagInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateTodoArgs = {
   data: UpdateTodoInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 export enum Priority {
@@ -162,7 +163,7 @@ export enum Priority {
 export type Project = {
   __typename?: 'Project';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -189,7 +190,7 @@ export type Query = {
 
 
 export type QueryFindListByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -199,7 +200,7 @@ export type QueryFindListByLabelArgs = {
 
 
 export type QueryFindProjectByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -209,7 +210,7 @@ export type QueryFindProjectByLabelArgs = {
 
 
 export type QueryFindTagByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -219,7 +220,7 @@ export type QueryFindTagByLabelArgs = {
 
 
 export type QueryFindTodoByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -245,7 +246,7 @@ export type QueryFindTodosByTagsArgs = {
 export type Tag = {
   __typename?: 'Tag';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -258,7 +259,7 @@ export type Todo = {
   description?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   list?: Maybe<List>;
   priority?: Maybe<Priority>;
@@ -273,12 +274,12 @@ export type UpdateListInput = {
 };
 
 export type UpdateProjectInput = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
 };
 
 export type UpdateTagInput = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
 };
 
@@ -287,7 +288,7 @@ export type UpdateTodoInput = {
   description?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['Date']>;
   endDate?: InputMaybe<Scalars['Date']>;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   list?: InputMaybe<Scalars['String']>;
   priority?: InputMaybe<Priority>;
@@ -301,200 +302,200 @@ export type CreateHomeTodoMutationVariables = Exact<{
 }>;
 
 
-export type CreateHomeTodoMutation = { __typename?: 'Mutation', createHomeTodo: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } };
+export type CreateHomeTodoMutation = { __typename?: 'Mutation', createHomeTodo: { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null } };
 
 export type CreateListMutationVariables = Exact<{
   data: CreateListInput;
 }>;
 
 
-export type CreateListMutation = { __typename?: 'Mutation', createList: { __typename?: 'List', id: string, label: string } };
+export type CreateListMutation = { __typename?: 'Mutation', createList: { __typename?: 'List', id: any, label: string } };
 
 export type CreateProjectMutationVariables = Exact<{
   data: CreateProjectInput;
 }>;
 
 
-export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, label: string } };
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: any, label: string } };
 
 export type CreateTagMutationVariables = Exact<{
   data: CreateTagInput;
 }>;
 
 
-export type CreateTagMutation = { __typename?: 'Mutation', createTag: { __typename?: 'Tag', id: string, label: string } };
+export type CreateTagMutation = { __typename?: 'Mutation', createTag: { __typename?: 'Tag', id: any, label: string } };
 
 export type CreateTodoMutationVariables = Exact<{
   data: CreateTodoInput;
 }>;
 
 
-export type CreateTodoMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } };
+export type CreateTodoMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null } };
 
 export type RemoveListMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type RemoveListMutation = { __typename?: 'Mutation', removeList: { __typename?: 'List', id: string } };
+export type RemoveListMutation = { __typename?: 'Mutation', removeList: { __typename?: 'List', id: any } };
 
 export type RemoveProjectMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type RemoveProjectMutation = { __typename?: 'Mutation', removeProject: { __typename?: 'Project', id: string } };
+export type RemoveProjectMutation = { __typename?: 'Mutation', removeProject: { __typename?: 'Project', id: any } };
 
 export type RemoveTagMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type RemoveTagMutation = { __typename?: 'Mutation', removeTag: { __typename?: 'Tag', id: string } };
+export type RemoveTagMutation = { __typename?: 'Mutation', removeTag: { __typename?: 'Tag', id: any } };
 
 export type RemoveTodoMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type RemoveTodoMutation = { __typename?: 'Mutation', removeTodo: { __typename?: 'Todo', id: string } };
+export type RemoveTodoMutation = { __typename?: 'Mutation', removeTodo: { __typename?: 'Todo', id: any } };
 
 export type UpdateListMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   data: UpdateListInput;
 }>;
 
 
-export type UpdateListMutation = { __typename?: 'Mutation', updateList: { __typename?: 'List', id: string, label: string } };
+export type UpdateListMutation = { __typename?: 'Mutation', updateList: { __typename?: 'List', id: any, label: string } };
 
 export type UpdateProjectMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   data: UpdateProjectInput;
 }>;
 
 
-export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, label: string } };
+export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: any, label: string } };
 
 export type UpdateTagMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   data: UpdateTagInput;
 }>;
 
 
-export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, label: string } };
+export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: any, label: string } };
 
 export type UpdateTodoMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   data: UpdateTodoInput;
 }>;
 
 
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } };
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null } };
 
-export type ListFragmentFragment = { __typename?: 'List', id: string, label: string };
+export type ListFragmentFragment = { __typename?: 'List', id: any, label: string };
 
-export type ProjectFragmentFragment = { __typename?: 'Project', id: string, label: string };
+export type ProjectFragmentFragment = { __typename?: 'Project', id: any, label: string };
 
-export type TagFragmentFragment = { __typename?: 'Tag', id: string, label: string };
+export type TagFragmentFragment = { __typename?: 'Tag', id: any, label: string };
 
-export type TodoFragmentFragment = { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null };
+export type TodoFragmentFragment = { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null };
 
 export type FindAllListsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllListsQuery = { __typename?: 'Query', findAllLists: Array<{ __typename?: 'List', id: string, label: string }> };
+export type FindAllListsQuery = { __typename?: 'Query', findAllLists: Array<{ __typename?: 'List', id: any, label: string }> };
 
 export type FindAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', id: string, label: string }> };
+export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', id: any, label: string }> };
 
 export type FindAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllTagsQuery = { __typename?: 'Query', findAllTags: Array<{ __typename?: 'Tag', id: string, label: string }> };
+export type FindAllTagsQuery = { __typename?: 'Query', findAllTags: Array<{ __typename?: 'Tag', id: any, label: string }> };
 
 export type FindAllTodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllTodosQuery = { __typename?: 'Query', findAllTodos: Array<{ __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null }> };
+export type FindAllTodosQuery = { __typename?: 'Query', findAllTodos: Array<{ __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null }> };
 
 export type FindListByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type FindListByIdQuery = { __typename?: 'Query', findListById?: { __typename?: 'List', id: string, label: string } | null };
+export type FindListByIdQuery = { __typename?: 'Query', findListById?: { __typename?: 'List', id: any, label: string } | null };
 
 export type FindListByLabelQueryVariables = Exact<{
   label: Scalars['String'];
 }>;
 
 
-export type FindListByLabelQuery = { __typename?: 'Query', findListByLabel?: { __typename?: 'List', id: string, label: string } | null };
+export type FindListByLabelQuery = { __typename?: 'Query', findListByLabel?: { __typename?: 'List', id: any, label: string } | null };
 
 export type FindProjectByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type FindProjectByIdQuery = { __typename?: 'Query', findProjectById?: { __typename?: 'Project', id: string, label: string } | null };
+export type FindProjectByIdQuery = { __typename?: 'Query', findProjectById?: { __typename?: 'Project', id: any, label: string } | null };
 
 export type FindProjectByLabelQueryVariables = Exact<{
   label: Scalars['String'];
 }>;
 
 
-export type FindProjectByLabelQuery = { __typename?: 'Query', findProjectByLabel?: { __typename?: 'Project', id: string, label: string } | null };
+export type FindProjectByLabelQuery = { __typename?: 'Query', findProjectByLabel?: { __typename?: 'Project', id: any, label: string } | null };
 
 export type FindTagByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type FindTagByIdQuery = { __typename?: 'Query', findTagById?: { __typename?: 'Tag', id: string, label: string } | null };
+export type FindTagByIdQuery = { __typename?: 'Query', findTagById?: { __typename?: 'Tag', id: any, label: string } | null };
 
 export type FindTagByLabelQueryVariables = Exact<{
   label: Scalars['String'];
 }>;
 
 
-export type FindTagByLabelQuery = { __typename?: 'Query', findTagByLabel?: { __typename?: 'Tag', id: string, label: string } | null };
+export type FindTagByLabelQuery = { __typename?: 'Query', findTagByLabel?: { __typename?: 'Tag', id: any, label: string } | null };
 
 export type FindTodoByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 }>;
 
 
-export type FindTodoByIdQuery = { __typename?: 'Query', findTodoById?: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } | null };
+export type FindTodoByIdQuery = { __typename?: 'Query', findTodoById?: { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null } | null };
 
 export type FindTodoByLabelQueryVariables = Exact<{
   label: Scalars['String'];
 }>;
 
 
-export type FindTodoByLabelQuery = { __typename?: 'Query', findTodoByLabel?: { __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null } | null };
+export type FindTodoByLabelQuery = { __typename?: 'Query', findTodoByLabel?: { __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null } | null };
 
 export type FindTodosByListQueryVariables = Exact<{
   listLabel: Scalars['String'];
 }>;
 
 
-export type FindTodosByListQuery = { __typename?: 'Query', findTodosByList: Array<{ __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null }> };
+export type FindTodosByListQuery = { __typename?: 'Query', findTodosByList: Array<{ __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null }> };
 
 export type FindTodosByProjectQueryVariables = Exact<{
   projectLabel: Scalars['String'];
 }>;
 
 
-export type FindTodosByProjectQuery = { __typename?: 'Query', findTodosByProject: Array<{ __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null }> };
+export type FindTodosByProjectQuery = { __typename?: 'Query', findTodosByProject: Array<{ __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null }> };
 
 export type FindTodosByTagsQueryVariables = Exact<{
   tagLabels: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type FindTodosByTagsQuery = { __typename?: 'Query', findTodosByTags: Array<{ __typename?: 'Todo', id: string, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: string, label: string } | null, project?: { __typename?: 'Project', id: string, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: string, label: string }> | null }> };
+export type FindTodosByTagsQuery = { __typename?: 'Query', findTodosByTags: Array<{ __typename?: 'Todo', id: any, label: string, completed: boolean, priority?: Priority | null, description?: string | null, dueDate?: any | null, startDate?: any | null, endDate?: any | null, createdAt: any, updatedAt: any, list?: { __typename?: 'List', id: any, label: string } | null, project?: { __typename?: 'Project', id: any, label: string } | null, tags?: Array<{ __typename?: 'Tag', id: any, label: string }> | null }> };
 
 export const ListFragmentFragmentDoc = gql`
     fragment ListFragment on List {
@@ -575,56 +576,56 @@ export const CreateTodoDocument = gql`
 }
     ${TodoFragmentFragmentDoc}`;
 export const RemoveListDocument = gql`
-    mutation removeList($id: ID!) {
+    mutation removeList($id: BigInt!) {
   removeList(id: $id) {
     id
   }
 }
     `;
 export const RemoveProjectDocument = gql`
-    mutation removeProject($id: ID!) {
+    mutation removeProject($id: BigInt!) {
   removeProject(id: $id) {
     id
   }
 }
     `;
 export const RemoveTagDocument = gql`
-    mutation removeTag($id: ID!) {
+    mutation removeTag($id: BigInt!) {
   removeTag(id: $id) {
     id
   }
 }
     `;
 export const RemoveTodoDocument = gql`
-    mutation removeTodo($id: ID!) {
+    mutation removeTodo($id: BigInt!) {
   removeTodo(id: $id) {
     id
   }
 }
     `;
 export const UpdateListDocument = gql`
-    mutation updateList($id: ID!, $data: UpdateListInput!) {
+    mutation updateList($id: BigInt!, $data: UpdateListInput!) {
   updateList(id: $id, data: $data) {
     ...ListFragment
   }
 }
     ${ListFragmentFragmentDoc}`;
 export const UpdateProjectDocument = gql`
-    mutation updateProject($id: ID!, $data: UpdateProjectInput!) {
+    mutation updateProject($id: BigInt!, $data: UpdateProjectInput!) {
   updateProject(id: $id, data: $data) {
     ...ProjectFragment
   }
 }
     ${ProjectFragmentFragmentDoc}`;
 export const UpdateTagDocument = gql`
-    mutation updateTag($id: ID!, $data: UpdateTagInput!) {
+    mutation updateTag($id: BigInt!, $data: UpdateTagInput!) {
   updateTag(id: $id, data: $data) {
     ...TagFragment
   }
 }
     ${TagFragmentFragmentDoc}`;
 export const UpdateTodoDocument = gql`
-    mutation updateTodo($id: ID!, $data: UpdateTodoInput!) {
+    mutation updateTodo($id: BigInt!, $data: UpdateTodoInput!) {
   updateTodo(id: $id, data: $data) {
     ...TodoFragment
   }
@@ -659,7 +660,7 @@ export const FindAllTodosDocument = gql`
 }
     ${TodoFragmentFragmentDoc}`;
 export const FindListByIdDocument = gql`
-    query findListById($id: ID!) {
+    query findListById($id: BigInt!) {
   findListById(id: $id) {
     ...ListFragment
   }
@@ -673,7 +674,7 @@ export const FindListByLabelDocument = gql`
 }
     ${ListFragmentFragmentDoc}`;
 export const FindProjectByIdDocument = gql`
-    query findProjectById($id: ID!) {
+    query findProjectById($id: BigInt!) {
   findProjectById(id: $id) {
     ...ProjectFragment
   }
@@ -687,7 +688,7 @@ export const FindProjectByLabelDocument = gql`
 }
     ${ProjectFragmentFragmentDoc}`;
 export const FindTagByIdDocument = gql`
-    query findTagById($id: ID!) {
+    query findTagById($id: BigInt!) {
   findTagById(id: $id) {
     ...TagFragment
   }
@@ -701,7 +702,7 @@ export const FindTagByLabelDocument = gql`
 }
     ${TagFragmentFragmentDoc}`;
 export const FindTodoByIdDocument = gql`
-    query findTodoById($id: ID!) {
+    query findTodoById($id: BigInt!) {
   findTodoById(id: $id) {
     ...TodoFragment
   }

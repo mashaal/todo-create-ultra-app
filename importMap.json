@@ -12,6 +12,7 @@
     "graphql-request": "https://esm.sh/graphql-request@v4.2.0?dev",
     "graphql-request/dist/types": "https://esm.sh/graphql-request@v4.2.0/dist/types?dev",
     "graphql-request/dist/types.dom": "https://esm.sh/graphql-request@v4.2.0/dist/types.dom?dev",
+    "graphql-scalars": "https://esm.sh/graphql-scalars?dev",
     "graphql-tag": "https://esm.sh/graphql-tag?dev",
     "kysely": "https://esm.sh/kysely?dev",
     "kysely_deno_postgres": "../kysely-deno-postgres/mod.ts",

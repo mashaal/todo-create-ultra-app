@@ -1,4 +1,4 @@
-query findTagById($id: ID!) {
+query findTagById($id: BigInt!) {
   findTagById(id: $id) {
     ...TagFragment
   }

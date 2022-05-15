@@ -1,4 +1,4 @@
-query findProjectById($id: ID!) {
+query findProjectById($id: BigInt!) {
   findProjectById(id: $id) {
     ...ProjectFragment
   }

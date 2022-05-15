@@ -1,4 +1,4 @@
-mutation removeTodo($id: ID!) {
+mutation removeTodo($id: BigInt!) {
   removeTodo(id: $id) {
     id
   }

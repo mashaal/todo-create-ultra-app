@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigInt: any;
   Date: any;
 };
 
@@ -57,7 +58,7 @@ export enum Frequency {
 export type List = {
   __typename?: 'List';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -107,46 +108,46 @@ export type MutationCreateTodoArgs = {
 
 
 export type MutationRemoveListArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveProjectArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveTagArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationRemoveTodoArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateListArgs = {
   data: UpdateListInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateProjectArgs = {
   data: UpdateProjectInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateTagArgs = {
   data: UpdateTagInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
 export type MutationUpdateTodoArgs = {
   data: UpdateTodoInput;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 export enum Priority {
@@ -159,7 +160,7 @@ export enum Priority {
 export type Project = {
   __typename?: 'Project';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -186,7 +187,7 @@ export type Query = {
 
 
 export type QueryFindListByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -196,7 +197,7 @@ export type QueryFindListByLabelArgs = {
 
 
 export type QueryFindProjectByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -206,7 +207,7 @@ export type QueryFindProjectByLabelArgs = {
 
 
 export type QueryFindTagByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -216,7 +217,7 @@ export type QueryFindTagByLabelArgs = {
 
 
 export type QueryFindTodoByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
 };
 
 
@@ -242,7 +243,7 @@ export type QueryFindTodosByTagsArgs = {
 export type Tag = {
   __typename?: 'Tag';
   createdAt: Scalars['Date'];
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   todos?: Maybe<Array<Todo>>;
   updatedAt: Scalars['Date'];
@@ -255,7 +256,7 @@ export type Todo = {
   description?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   list?: Maybe<List>;
   priority?: Maybe<Priority>;
@@ -270,12 +271,12 @@ export type UpdateListInput = {
 };
 
 export type UpdateProjectInput = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
 };
 
 export type UpdateTagInput = {
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
 };
 
@@ -284,7 +285,7 @@ export type UpdateTodoInput = {
   description?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['Date']>;
   endDate?: InputMaybe<Scalars['Date']>;
-  id: Scalars['ID'];
+  id: Scalars['BigInt'];
   label: Scalars['String'];
   list?: InputMaybe<Scalars['String']>;
   priority?: InputMaybe<Priority>;
@@ -362,6 +363,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateHomeTodoInput: CreateHomeTodoInput;
   CreateListInput: CreateListInput;
@@ -370,7 +372,6 @@ export type ResolversTypes = {
   CreateTodoInput: CreateTodoInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Frequency: Frequency;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   List: ResolverTypeWrapper<List>;
   Mutation: ResolverTypeWrapper<{}>;
   Priority: Priority;
@@ -387,6 +388,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  BigInt: Scalars['BigInt'];
   Boolean: Scalars['Boolean'];
   CreateHomeTodoInput: CreateHomeTodoInput;
   CreateListInput: CreateListInput;
@@ -394,7 +396,6 @@ export type ResolversParentTypes = {
   CreateTagInput: CreateTagInput;
   CreateTodoInput: CreateTodoInput;
   Date: Scalars['Date'];
-  ID: Scalars['ID'];
   List: List;
   Mutation: {};
   Project: Project;
@@ -408,13 +409,17 @@ export type ResolversParentTypes = {
   UpdateTodoInput: UpdateTodoInput;
 };
 
+export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
+  name: 'BigInt';
+}
+
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
 
 export type ListResolvers<ContextType = any, ParentType extends ResolversParentTypes['List'] = ResolversParentTypes['List']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Maybe<Array<ResolversTypes['Todo']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -439,7 +444,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type ProjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Maybe<Array<ResolversTypes['Todo']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -466,7 +471,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type TagResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<Maybe<Array<ResolversTypes['Todo']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -479,7 +484,7 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dueDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   endDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   list?: Resolver<Maybe<ResolversTypes['List']>, ParentType, ContextType>;
   priority?: Resolver<Maybe<ResolversTypes['Priority']>, ParentType, ContextType>;
@@ -491,6 +496,7 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  BigInt?: GraphQLScalarType;
   Date?: GraphQLScalarType;
   List?: ListResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

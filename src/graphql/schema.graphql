@@ -1,3 +1,4 @@
+scalar BigInt
 scalar Date
 
 input CreateListInput {
@@ -9,7 +10,7 @@ input UpdateListInput {
 }
 
 type List {
-  id: ID!
+  id: BigInt!
   label: String!
   todos: [Todo!]
   createdAt: Date!
@@ -21,12 +22,12 @@ input CreateProjectInput {
 }
 
 input UpdateProjectInput {
-  id: ID!
+  id: BigInt!
   label: String!
 }
 
 type Project {
-  id: ID!
+  id: BigInt!
   label: String!
   todos: [Todo!]
   createdAt: Date!
@@ -38,12 +39,12 @@ input CreateTagInput {
 }
 
 input UpdateTagInput {
-  id: ID!
+  id: BigInt!
   label: String!
 }
 
 type Tag {
-  id: ID!
+  id: BigInt!
   label: String!
   todos: [Todo!]
   createdAt: Date!
@@ -64,7 +65,7 @@ input CreateTodoInput {
 }
 
 input UpdateTodoInput {
-  id: ID!
+  id: BigInt!
   label: String!
   completed: Boolean!
   list: String
@@ -85,7 +86,7 @@ input CreateHomeTodoInput {
 }
 
 type Todo {
-  id: ID!
+  id: BigInt!
   label: String!
   completed: Boolean!
   list: List
@@ -117,40 +118,40 @@ enum Frequency {
 
 type Query {
   findAllLists: [List!]!
-  findListById(id: ID!): List
+  findListById(id: BigInt!): List
   findListByLabel(label: String!): List
 
   findAllProjects: [Project!]!
-  findProjectById(id: ID!): Project
+  findProjectById(id: BigInt!): Project
   findProjectByLabel(label: String!): Project
 
   findAllTags: [Tag!]!
-  findTagById(id: ID!): Tag
+  findTagById(id: BigInt!): Tag
   findTagByLabel(label: String!): Tag
 
   findAllTodos: [Todo!]!
   findTodosByList(listLabel: String!): [Todo!]!
   findTodosByProject(projectLabel: String!): [Todo!]!
   findTodosByTags(tagLabels: [String!]!): [Todo!]!
-  findTodoById(id: ID!): Todo
+  findTodoById(id: BigInt!): Todo
   findTodoByLabel(label: String!): Todo
 }
 
 type Mutation {
   createList(data: CreateListInput!): List!
-  updateList(id: ID!, data: UpdateListInput!): List!
-  removeList(id: ID!): List!
+  updateList(id: BigInt!, data: UpdateListInput!): List!
+  removeList(id: BigInt!): List!
 
   createProject(data: CreateProjectInput!): Project!
-  updateProject(id: ID!, data: UpdateProjectInput!): Project!
-  removeProject(id: ID!): Project!
+  updateProject(id: BigInt!, data: UpdateProjectInput!): Project!
+  removeProject(id: BigInt!): Project!
 
   createTag(data: CreateTagInput!): Tag!
-  updateTag(id: ID!, data: UpdateTagInput!): Tag!
-  removeTag(id: ID!): Tag!
+  updateTag(id: BigInt!, data: UpdateTagInput!): Tag!
+  removeTag(id: BigInt!): Tag!
 
   createTodo(data: CreateTodoInput!): Todo!
   createHomeTodo(data: CreateHomeTodoInput!): Todo!
-  updateTodo(id: ID!, data: UpdateTodoInput!): Todo!
-  removeTodo(id: ID!): Todo!
+  updateTodo(id: BigInt!, data: UpdateTodoInput!): Todo!
+  removeTodo(id: BigInt!): Todo!
 }

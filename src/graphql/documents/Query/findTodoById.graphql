@@ -1,4 +1,4 @@
-query findTodoById($id: ID!) {
+query findTodoById($id: BigInt!) {
   findTodoById(id: $id) {
     ...TodoFragment
   }

@@ -1,4 +1,4 @@
-mutation removeProject($id: ID!) {
+mutation removeProject($id: BigInt!) {
   removeProject(id: $id) {
     id
   }

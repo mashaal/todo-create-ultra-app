@@ -1,4 +1,4 @@
-mutation updateTag($id: ID!, $data: UpdateTagInput!) {
+mutation updateTag($id: BigInt!, $data: UpdateTagInput!) {
   updateTag(id: $id, data: $data) {
     ...TagFragment
   }

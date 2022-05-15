@@ -1,4 +1,4 @@
-query findListById($id: ID!) {
+query findListById($id: BigInt!) {
   findListById(id: $id) {
     ...ListFragment
   }

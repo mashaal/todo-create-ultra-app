@@ -1,4 +1,4 @@
-mutation removeTag($id: ID!) {
+mutation removeTag($id: BigInt!) {
   removeTag(id: $id) {
     id
   }

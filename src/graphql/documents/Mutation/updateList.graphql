@@ -1,4 +1,4 @@
-mutation updateList($id: ID!, $data: UpdateListInput!) {
+mutation updateList($id: BigInt!, $data: UpdateListInput!) {
   updateList(id: $id, data: $data) {
     ...ListFragment
   }

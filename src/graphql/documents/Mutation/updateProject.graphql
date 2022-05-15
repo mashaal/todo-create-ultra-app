@@ -1,4 +1,4 @@
-mutation updateProject($id: ID!, $data: UpdateProjectInput!) {
+mutation updateProject($id: BigInt!, $data: UpdateProjectInput!) {
   updateProject(id: $id, data: $data) {
     ...ProjectFragment
   }

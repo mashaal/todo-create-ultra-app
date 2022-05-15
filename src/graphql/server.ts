@@ -1,8 +1,12 @@
-import { useErrorHandler } from '@envelop/core';
 import { YogaInitialContext } from '@graphql-yoga/common';
 import { createServer } from '@graphql-yoga/common';
 import { dirname, fromFileUrl, resolve } from 'std/path/mod.ts';
 import { gql } from 'graphql-tag';
+import {
+  resolvers as scalarResolvers,
+  typeDefs as scalarTypeDefs,
+} from 'graphql-scalars';
+import { useErrorHandler } from '@envelop/core';
 
 import resolvers from './resolvers/mod.ts';
 
@@ -19,8 +23,14 @@ const errorHandler = useErrorHandler<Context>((errors, _context) => {
 
 export const server = createServer({
   schema: {
-    typeDefs: gql(schemaFile),
-    resolvers,
+    typeDefs: [
+      ...scalarTypeDefs,
+      gql(schemaFile),
+    ],
+    resolvers: {
+      ...scalarResolvers,
+      ...resolvers,
+    },
   },
   logging: true,
   plugins: [errorHandler],

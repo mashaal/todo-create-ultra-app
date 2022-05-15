@@ -1,4 +1,4 @@
-mutation updateTodo($id: ID!, $data: UpdateTodoInput!) {
+mutation updateTodo($id: BigInt!, $data: UpdateTodoInput!) {
   updateTodo(id: $id, data: $data) {
     ...TodoFragment
   }
