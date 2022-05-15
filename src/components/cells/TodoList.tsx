@@ -5,27 +5,22 @@ import { Loader } from '../atoms/Loader.tsx';
 import { Spinner } from '../atoms/Spinner.tsx';
 import { getSDK } from '../../graphql/client.ts';
 
-export const request = () => {
+export function TodoList() {
   const sdk = getSDK();
   const { data, error } = sdk.useFindAllTodos('findAllTodos');
-  return { data, error };
-};
 
-export const loading = () => {
-  return (
-    <Loader>
-      <Spinner />
-    </Loader>
-  );
-};
+  if (!data && !error) {
+    return (
+      <Loader>
+        <Spinner />
+      </Loader>
+    );
+  }
 
-export const failure = ({ error }: { error: Error }) => {
-  return <div>{error.stack || error.message}</div>;
-};
+  if (error) {
+    return <div>{error.stack || error.message}</div>;
+  }
 
-export const success = (
-  { data }: { data: ReturnType<typeof request>['data'] },
-) => {
   return (
     <>
       <style>
@@ -51,4 +46,4 @@ export const success = (
       </ul>
     </>
   );
-};
+}
